@@ -4,6 +4,7 @@ import com.example.case_md4.jwt.service.JwtResponse;
 import com.example.case_md4.jwt.service.JwtService;
 import com.example.case_md4.model.Account;
 import com.example.case_md4.model.Role;
+import com.example.case_md4.model.dto.UserDTO;
 import com.example.case_md4.service.IRoleService;
 import com.example.case_md4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,19 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> findAll() {
+        return new ResponseEntity<>(userService.findAllDTO(), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> findById(@PathVariable Long id) {
+        UserDTO user = userService.findOne(id);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Not Found User", HttpStatus.NO_CONTENT);
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> login(@RequestBody Account user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -61,4 +75,6 @@ public class AuthController {
     public ResponseEntity<List<Role>> getRoles() {
         return new ResponseEntity<>(roleService.findAll(), HttpStatus.OK);
     }
+
+
 }

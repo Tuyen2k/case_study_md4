@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +46,15 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 
     @Override
     public List<Account> findAll() {
-        return null;
+        return iUserRepository.findAll();
+    }
+    public List<UserDTO> findAllDTO() {
+        List<UserDTO> userDTOS = new ArrayList<>();
+        List<Account> accounts = findAll();
+        for (Account a : accounts) {
+            userDTOS.add(toDTO(a));
+        }
+        return userDTOS;
     }
 
     @Override
