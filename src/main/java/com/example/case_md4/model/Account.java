@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -16,6 +17,7 @@ public class Account {
     @Column(unique = true)
     private String name;
     @NotEmpty
+    @Email
     @Column(unique = true)
     private String email;
     @NotEmpty

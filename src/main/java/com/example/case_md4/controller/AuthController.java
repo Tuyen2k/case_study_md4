@@ -66,9 +66,15 @@ public class AuthController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<String> register(@RequestBody Account user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.save(user);
-        return new ResponseEntity<>("Register successfully!", HttpStatus.OK);
+        if (user.getPassword().equals(user.getConfirm_password())){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setConfirm_password(passwordEncoder.encode(user.getConfirm_password()));
+            userService.save(user);
+            return new ResponseEntity<>("Register successfully!", HttpStatus.OK);
+        }
+       else{
+            return new ResponseEntity<>("Password confirmation is incorrect!", HttpStatus.OK);
+        }
     }
 
     @RequestMapping(value = "/roles", method = RequestMethod.GET)

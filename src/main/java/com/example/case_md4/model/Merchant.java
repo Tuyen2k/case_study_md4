@@ -5,6 +5,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ public class Merchant {
     @Column(unique = true)
     private String phone;
     @NotEmpty
+    @Email
     @Column(unique = true)
     private String email;
     private LocalDateTime open_time;
