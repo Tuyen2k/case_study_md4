@@ -1,6 +1,4 @@
 package com.example.case_md4.model;
-
-
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,4 +34,5 @@ public class Product {
     @Column(nullable = false)
     @ColumnDefault("true")
     private boolean status;
+
 }

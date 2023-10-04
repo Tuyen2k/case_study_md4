@@ -1,0 +1,5 @@
+URL_DB=jdbc:mysql://localhost:3306/case_md4
+USERNAME=root
+PASSWORD=123456
+UPLOAD_IMG=C:/Users/Admin/OneDrive/Desktop/case_study_md4/src/main/resources/static/image
+DISPLAY=/src/main/resources/static/image
