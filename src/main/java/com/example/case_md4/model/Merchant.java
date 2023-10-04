@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -25,8 +26,8 @@ public class Merchant {
     @NotEmpty
     @Column(unique = true)
     private String email;
-    private LocalDate open_time;
-    private LocalDate close_time;
+    private LocalDateTime open_time;
+    private LocalDateTime close_time;
     @Column(nullable = false)
     @ColumnDefault("true")
     private boolean isDelete;
