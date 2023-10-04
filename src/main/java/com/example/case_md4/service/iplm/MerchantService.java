@@ -42,7 +42,7 @@ public class MerchantService implements IMerchantService {
     @Override
     public void delete(Long id_merchant) {
         Merchant merchant = findById(id_merchant);
-        merchant.setDelete(false);
+        merchant.setDelete(true);
         merchantRepository.save(merchant);
 
 }
