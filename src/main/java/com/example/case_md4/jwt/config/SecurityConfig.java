@@ -56,21 +56,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomAccessDeniedHandler();
     }
 
-//    protected void configure(HttpSecurity http) throws Exception {
-//        // Disable crsf cho đường dẫn /api/**
-//        http.csrf().ignoringRequestMatchers("/api/**");
-//        http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
-//        http.authorizeHttpRequests()
-//                .requestMatchers("/api/auth/**").permitAll()
-//                .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole(new String[]{"ADMIN", "USER"})
-//                .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("ADMIN")
-//                .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("ADMIN")
-//                .anyRequest().authenticated()
-//                .and().csrf().disable();
-//        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
-//        http.sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.cors();
-//    }
+    protected void configure(HttpSecurity http) throws Exception {
+        // Disable crsf cho đường dẫn /api/**
+        http.csrf().ignoringAntMatchers("/api/**");
+        http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
+        http.authorizeHttpRequests().antMatchers("/**").permitAll()
+//                .antMatchers("/api/auth/**").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/**").hasAnyRole(new String[]{"ADMIN", "USER"})
+//                .antMatchers(HttpMethod.POST, "/api/**").hasAnyRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("ADMIN")
+                .anyRequest().authenticated()
+                .and().csrf().disable();
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.cors();
+    }
 }

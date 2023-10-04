@@ -1,6 +1,7 @@
 package com.example.case_md4.model;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -26,6 +27,9 @@ public class Merchant {
     private String email;
     private LocalDate open_time;
     private LocalDate close_time;
+    @Column(nullable = false)
+    @ColumnDefault("true")
+    private boolean isDelete;
     @ManyToOne
     private Activity activity;
     @ManyToOne

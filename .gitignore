@@ -17,6 +17,7 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
+environment_variable
 ### IntelliJ IDEA ###
 .idea
 *.iws

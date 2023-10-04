@@ -1,6 +1,7 @@
 package com.example.case_md4.model;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -21,6 +22,9 @@ public class Account {
     private String password;
     @NotEmpty
     private String confirm_password;
+    @Column(nullable = false)
+    @ColumnDefault("true")
+    private boolean isDelete;
     @ManyToOne
     private Role role;
     @ManyToOne

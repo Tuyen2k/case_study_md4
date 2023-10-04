@@ -24,8 +24,11 @@ public class Product {
     private String image;
     @Transient
     private MultipartFile file;
-//    @ManyToOne
-//    private Category category;
+    @Column(nullable = false)
+    @ColumnDefault("true")
+    private boolean isDelete;
+    @ManyToOne
+    private Category category;
     @ColumnDefault("0")
     private int view;
     @ColumnDefault("0")
