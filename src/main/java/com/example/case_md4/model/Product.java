@@ -25,7 +25,7 @@ public class Product {
     @Transient
     private MultipartFile file;
     @Column(nullable = false)
-    @ColumnDefault("true")
+    @ColumnDefault("false")
     private boolean isDelete;
     @ManyToOne
     private Category category;

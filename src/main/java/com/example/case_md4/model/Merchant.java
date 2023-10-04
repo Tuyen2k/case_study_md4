@@ -29,7 +29,7 @@ public class Merchant {
     private LocalDateTime open_time;
     private LocalDateTime close_time;
     @Column(nullable = false)
-    @ColumnDefault("true")
+    @ColumnDefault("false")
     private boolean isDelete;
     @ManyToOne
     private Activity activity;
