@@ -63,12 +63,22 @@ public class MerchantController {
     }
 
     @DeleteMapping("{id_merchant}")
-    public ResponseEntity<Void> delete (@PathVariable Long id_merchant ){
+    public ResponseEntity<Void> delete(@PathVariable Long id_merchant) {
         Merchant merchant = merchantService.findById(id_merchant);
-        if(merchant != null){
+        if (merchant != null) {
             merchantService.delete(id_merchant);
-            return  new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("account/{id_account}")
+    public  ResponseEntity<Merchant> findOneAccount (@PathVariable Long id_account){
+        Merchant merchant = merchantService.findOneByAndAccount(id_account);
+        if(merchant != null){
+            return  new ResponseEntity<>(merchant,HttpStatus.OK);
         }
         return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
+
+
