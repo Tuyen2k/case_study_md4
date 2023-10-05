@@ -51,6 +51,11 @@ public class ProductServiceImpl implements IProductService {
        productRepository.save(product);
     }
 
+    @Override
+    public List<Product> displayProductByPurchase() {
+        return productRepository.displayProductByPurchase();
+    }
+
     public List<Product> getProductInMerchant(Long id){
         List<Product> products = new ArrayList<>();
         for (Product p: findAll()) {
@@ -59,4 +64,5 @@ public class ProductServiceImpl implements IProductService {
             }
         } return products;
     }
+
 }

@@ -83,4 +83,8 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/list")
+    public ResponseEntity<List<Product>> displayProductBySales(){
+        return new ResponseEntity<>(productService.displayProductByPurchase(), HttpStatus.OK);
+    }
 }
