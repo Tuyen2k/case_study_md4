@@ -262,11 +262,13 @@ function showPage() {
 
 function previousPage(page) {
     numberPage = page - 1;
+    upTop()
     showPage();
 }
 
 function nextPage(page) {
     numberPage = page + 1;
+    upTop()
     showPage();
 }
 
@@ -283,7 +285,7 @@ function productsStart(data) {
     for (let i = 0; i < data.length; i++) {
         console.log(data)
         content +=
-            '<div class="owl-item active" style="width: 255px; margin-right: 29px">' +
+            '<div class="owl-item active col-md-3"">' +
             '<div class="card product-item border-0">\n' +
             '          <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">\n' +
             `             <img onclick="SeeDetails(${i})" class="img-fluid w-100" src="../src/main/resources/static/image/${data[i].image}" alt="image">\n` +
@@ -314,7 +316,13 @@ function productsStart(data) {
     document.getElementById("productsStart").innerHTML = content
 }
 
-
+function upTop(){
+    window.scroll({
+        top: 500,
+        left: 0,
+        behavior: 'smooth'
+    });
+}
 
 
 
