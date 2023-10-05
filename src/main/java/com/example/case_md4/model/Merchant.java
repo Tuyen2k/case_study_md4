@@ -22,6 +22,7 @@ public class Merchant {
     @Column(unique = true)
     private String phone;
 
+
     @Column(unique = true)
     private String email;
     private LocalTime open_time;

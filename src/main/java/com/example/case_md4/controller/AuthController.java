@@ -4,6 +4,7 @@ import com.example.case_md4.jwt.service.JwtResponse;
 import com.example.case_md4.jwt.service.JwtService;
 import com.example.case_md4.model.Account;
 import com.example.case_md4.model.Role;
+import com.example.case_md4.model.dto.UserDTO;
 import com.example.case_md4.service.IRoleService;
 import com.example.case_md4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,19 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> findAll() {
+        return new ResponseEntity<>(userService.findAllDTO(), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> findById(@PathVariable Long id) {
+        UserDTO user = userService.findOne(id);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Not Found User", HttpStatus.NO_CONTENT);
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> login(@RequestBody Account user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -52,13 +66,33 @@ public class AuthController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<String> register(@RequestBody Account user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.save(user);
-        return new ResponseEntity<>("Register successfully!", HttpStatus.OK);
+        if (user.getPassword().equals(user.getConfirm_password())){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setConfirm_password(passwordEncoder.encode(user.getConfirm_password()));
+            Role role_user = roleService.findById(2L);
+            user.setRole(role_user);
+            userService.save(user);
+            return new ResponseEntity<>("Register successfully!", HttpStatus.OK);
+        }
+       else{
+            return new ResponseEntity<>("Password confirmation is incorrect!", HttpStatus.OK);
+        }
     }
 
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
     public ResponseEntity<List<Role>> getRoles() {
         return new ResponseEntity<>(roleService.findAll(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        userService.delete(id);
+        return ResponseEntity.ok("Delete success!!!");
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<String> save(@RequestBody Account account){
+        userService.save(account);
+        return ResponseEntity.ok("Update success!!!");
     }
 }

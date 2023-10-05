@@ -1,5 +1,6 @@
 package com.example.case_md4.model.dto;
 
+import com.example.case_md4.model.Address;
 import com.example.case_md4.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,4 +16,7 @@ public class UserDTO {
     private Long id;
     private String name;
     private Role role;
+    private String email;
+    private boolean isDelete;
+    private Address address_delivery;
 }
