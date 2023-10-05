@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface IMerchantService extends IGenerateService<Merchant>{
 
+  List<Merchant> findAllMerchant();
   void  delete (Long id_merchant);
 }

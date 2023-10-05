@@ -1,5 +1,6 @@
 package com.example.case_md4.controller;
 
+import com.example.case_md4.model.Activity;
 import com.example.case_md4.model.Merchant;
 import com.example.case_md4.service.IMerchantService;
 import com.example.case_md4.service.iplm.AddressServiceImpl;
@@ -29,6 +30,10 @@ public class MerchantController {
     @GetMapping
     public ResponseEntity<List<Merchant>> findAll() {
         return new ResponseEntity<>(merchantService.findAll(), HttpStatus.OK);
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<Merchant>> findAllMerchant() {
+        return new ResponseEntity<>(merchantService.findAllMerchant(), HttpStatus.OK);
     }
 
     @GetMapping("{id_merchant}")
@@ -70,5 +75,14 @@ public class MerchantController {
             return  new ResponseEntity<>(HttpStatus.OK);
         }
         return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/activity/{id_merchant}")
+    public ResponseEntity<Void> activityMerchant(@PathVariable Long id_merchant,
+                                                 @RequestBody Activity activity){
+        Merchant merchant = merchantService.findById(id_merchant);
+        merchant.setActivity(activity);
+        merchantService.save(merchant);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
