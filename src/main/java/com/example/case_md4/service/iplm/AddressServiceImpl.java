@@ -70,4 +70,8 @@ public class AddressServiceImpl {
         return iWardRepository.findAllByDistrict(district);
     }
 
+    public void save(Address address){
+        iAddressRepository.save(address);
+    }
+
 }

@@ -15,7 +15,7 @@ public class MerchantService implements IMerchantService {
     private IMerchantRepository merchantRepository ;
     @Override
     public List<Merchant> findAll() {
-        return merchantRepository.findAll();
+        return merchantRepository.findAllByActivity();
     }
 
     @Override
@@ -31,12 +31,6 @@ public class MerchantService implements IMerchantService {
     @Override
     public void save(Merchant merchant) {
       merchantRepository.save(merchant);
-    }
-
-
-    @Override
-    public List<Merchant> findAllByActivity( Long activity_id_activity) {
-        return merchantRepository.findAllByActivity( activity_id_activity);
     }
 
     @Override
