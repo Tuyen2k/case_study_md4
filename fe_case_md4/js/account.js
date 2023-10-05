@@ -27,10 +27,24 @@ function displayAccount(data) {
                           <td class="align-middle">
                             ${data[i].role.name}
                          </td>
-                         <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
+                         <td class="align-middle"><button class="btn btn-sm btn-primary" onclick="deleteAccount(${data[i].id})"><i class="fa fa-times"></i></button>
                          </td>
                  </tr>`
     }
     document.getElementById("display_account").innerHTML = content;
 }
+
+// function deleteAccount(id){
+//     if (confirm("Are you sure?")){
+//         $.ajax({
+//             type: "DELETE",
+//             url: ""
+//         })
+//     }
+// }
+
+function login(){
+
+}
+
 

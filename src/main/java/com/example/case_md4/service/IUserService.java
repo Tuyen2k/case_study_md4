@@ -12,4 +12,7 @@ public interface IUserService extends IGenerateService<Account> {
 
     UserDTO findOne(Long id);
     List<UserDTO> findAllDTO();
+
+    void delete(Long id);
+    void save(Account account);
 }

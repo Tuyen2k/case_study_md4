@@ -69,6 +69,8 @@ public class AuthController {
         if (user.getPassword().equals(user.getConfirm_password())){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setConfirm_password(passwordEncoder.encode(user.getConfirm_password()));
+            Role role_user = roleService.findById(2L);
+            user.setRole(role_user);
             userService.save(user);
             return new ResponseEntity<>("Register successfully!", HttpStatus.OK);
         }
@@ -82,5 +84,15 @@ public class AuthController {
         return new ResponseEntity<>(roleService.findAll(), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        userService.delete(id);
+        return ResponseEntity.ok("Delete success!!!");
+    }
 
+    @PostMapping("/update")
+    public ResponseEntity<String> save(@RequestBody Account account){
+        userService.save(account);
+        return ResponseEntity.ok("Update success!!!");
+    }
 }
