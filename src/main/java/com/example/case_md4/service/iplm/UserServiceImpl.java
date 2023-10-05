@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
         return iUserRepository.findByName(name);
     }
 
+    @Override
     public void save(Account account) {
         iUserRepository.save(account);
     }
@@ -41,13 +42,14 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
     }
 
     public UserDTO toDTO(Account account) {
-        return new UserDTO(account.getId_account(), account.getName(), account.getRole(), account.getEmail(), account.isDelete(),account.getAddress_delivery());
+        return new UserDTO(account.getId_account(), account.getName(), account.getRole(), account.getEmail(), account.isDelete(), account.getAddress_delivery());
     }
 
     @Override
     public List<Account> findAll() {
         return iUserRepository.findAll();
     }
+
     public List<UserDTO> findAllDTO() {
         List<UserDTO> userDTOS = new ArrayList<>();
         List<Account> accounts = findAll();
@@ -62,4 +64,12 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
         Optional<Account> userOptional = iUserRepository.findById(id);
         return userOptional.map(this::toDTO).orElse(null);
     }
+
+    @Override
+    public void delete(Long id) {
+        Account account = findById(id);
+        account.setDelete(true);
+        iUserRepository.save(account);
+    }
+
 }

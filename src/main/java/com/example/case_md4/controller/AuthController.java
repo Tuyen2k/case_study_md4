@@ -82,5 +82,15 @@ public class AuthController {
         return new ResponseEntity<>(roleService.findAll(), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        userService.delete(id);
+        return ResponseEntity.ok("Delete success!!!");
+    }
 
+    @PostMapping("/update")
+    public ResponseEntity<String> save(@RequestBody Account account){
+        userService.save(account);
+        return ResponseEntity.ok("Update success!!!");
+    }
 }
