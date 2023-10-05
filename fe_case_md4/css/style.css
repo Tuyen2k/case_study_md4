@@ -42,6 +42,14 @@
   box-sizing: border-box;
 }
 
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  z-index: 9;
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
