@@ -40,4 +40,11 @@ public class MerchantService implements IMerchantService {
         merchantRepository.save(merchant);
 
 }
+public Merchant findOneByAndAccount (Long id_account){
+        Merchant merchant = merchantRepository.findOneByAndAccount(id_account);
+    if(merchant != null){
+        return  merchant;
+    }
+    return  null;
+}
 }

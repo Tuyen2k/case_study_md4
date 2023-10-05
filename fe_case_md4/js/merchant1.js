@@ -14,7 +14,7 @@ function display(data) {
             "                                </div>\n" +
             "                            </div>\n" +
             "                            <div class=\"card-footer d-flex justify-content-between bg-light border\">\n" +
-            "                                <a href=\"\" class=\"btn btn-sm text-dark p-0\"><i class=\"fas fa-eye text-primary mr-1\"></i>View Detail</a>\n" +
+            `                                <a href=\"\" class=\"btn btn-sm text-dark p-0\"><i class=\"fas fa-eye text-primary mr-1\"></i>View Detail</a>\n"` +
             "                            </div>\n" +
             "                        </div>\n" +
             "                    </div>"
@@ -24,9 +24,12 @@ function display(data) {
 
 function getDB() {
     findCity();
+    findCityU()
 }
+
 let arrProduct;
 let listDisplayPage;
+
 function getAllMerchant() {
     $.ajax({
         type: "GET",
@@ -40,8 +43,10 @@ function getAllMerchant() {
         }
     })
 }
+
 let numberPage;
 let totalPage;
+
 function showPage() {
     let data = listDisplayPage;
     let elementPage = 5;
@@ -55,6 +60,7 @@ function showPage() {
     showFootPage();
     console.log(totalPage)
 }
+
 function showFootPage() {
     let content = `<div id="footPage">
                      <button class="btn btn-outline-primary" id="previous" onclick="previousPage(numberPage)">Previous</button>
@@ -62,12 +68,13 @@ function showFootPage() {
                      <button class="btn btn-outline-primary" id="next" onclick="nextPage(numberPage)">Next</button>
                      </div>`
     document.getElementById("footPage").innerHTML = content;
-    if (numberPage === 0){
+    if (numberPage === 0) {
         $("#previous").hide();
-    }else if (numberPage === totalPage - 1){
+    } else if (numberPage === totalPage - 1) {
         $("#next").hide();
     }
 }
+
 function previousPage(page) {
     numberPage = page - 1;
     showPage();
@@ -77,7 +84,6 @@ function nextPage(page) {
     numberPage = page + 1;
     showPage();
 }
-
 
 
 function save() {
@@ -204,5 +210,78 @@ class Address {
         this.ward = {}
         this.address_detail = ""
     }
+
+}
+
+function updateDisplayMerchant(id) {
+    $.ajax({
+        type: "GET",
+        url: `http://localhost:8080/api/merchant/account/${14}`,
+        success: function (data) {
+            $("#nameU").val(`${data.name}`)
+            $("#phoneU").val(`${data.phone}`)
+            $("#emailU").val(`${data.email}`)
+            $("#open_timeU").val(`${data.open_time}`)
+            $("#close_timeU").val(`${data.close_time}`)
+            findCityU()
+            findDistrictU()
+            findWardU()
+            localStorage.setItem("img", data.image)
+            localStorage.setItem("idUpdate", data.id)
+        }
+    })
+}
+
+updateDisplayMerchant()
+
+function findCityU() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/address/city",
+        success: function (data) {
+            console.log(data)
+            let content = '<select id="cityU" onchange="findDistrictU()" placeholder="Choice a city..."  class="select">';
+            content += '<option value="">Choice a city...</option>';
+            for (let i = 0; i < data.length; i++) {
+                content += '<option value="' + data[i].id_city + '">' + data[i].name + '</option>';
+            }
+            content += "</select>";
+            document.getElementById("select_cityU").innerHTML = content;
+        }
+    })
+}
+
+function findDistrictU() {
+    let id_city = document.getElementById("cityU").value;
+    $.ajax({
+        type: "GET",
+        url: `http://localhost:8080/api/address/district${id_city}`,
+        success: function (data) {
+            let content = '<select class="select" onchange="findWardU()" id="districtU">';
+            content += '<option>Choice a district...</option>';
+            for (let i = 0; i < data.length; i++) {
+                content += '<option value="' + data[i].id_district + '">' + data[i].name + '</option>';
+            }
+            content += "</select>";
+            document.getElementById("select_districtU").innerHTML = content;
+        }
+    })
+}
+
+function findWardU() {
+    let id_district = document.getElementById("districtU").value;
+    $.ajax({
+        type: "GET",
+        url: `http://localhost:8080/api/address/ward${id_district}`,
+        success: function (data) {
+            let content = '<select class="select" id="wardU">';
+            content += '<option>Choice a ward...</option>';
+            for (let i = 0; i < data.length; i++) {
+                content += '<option value="' + data[i].id_ward + '">' + data[i].name + '</option>';
+            }
+            content += "</select>";
+            document.getElementById("select_wardU").innerHTML = content;
+        }
+    })
 }
 
