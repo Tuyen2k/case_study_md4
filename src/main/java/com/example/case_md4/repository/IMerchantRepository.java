@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface IMerchantRepository extends JpaRepository<Merchant,Long> {
-    @Query(value = "select * from merchant where activity_id_activity = 1",nativeQuery = true)
-    List<Merchant> findAllByActivity(Long activity_id_activity);
+    @Query(value = "select * from merchant where activity_id_activity = 1 and is_delete =false",nativeQuery = true)
+    List<Merchant> findAllByActivity();
 
 }

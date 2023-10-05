@@ -2,6 +2,7 @@ package com.example.case_md4.controller;
 
 import com.example.case_md4.model.Merchant;
 import com.example.case_md4.service.IMerchantService;
+import com.example.case_md4.service.iplm.AddressServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ public class MerchantController {
     private IMerchantService merchantService;
     @Value("${upload.path}")
     private String upload;
+    @Autowired
+    private AddressServiceImpl addressService;
 
     @GetMapping
     public ResponseEntity<List<Merchant>> findAll() {
@@ -53,14 +56,12 @@ public class MerchantController {
                 merchant.setImage("fall-8192375_640.png");
             }
         }
+        addressService.save(merchant.getAddress_shop());
+        merchant.setAddress_shop(addressService.findLast());
         merchantService.save(merchant);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("activity/{activity_id_activity}")
-    public ResponseEntity<List<Merchant>> findAll(@PathVariable Long activity_id_activity) {
-        return new ResponseEntity<>(merchantService.findAllByActivity(activity_id_activity), HttpStatus.OK);
-    }
     @DeleteMapping("{id_merchant}")
     public ResponseEntity<Void> delete (@PathVariable Long id_merchant ){
         Merchant merchant = merchantService.findById(id_merchant);

@@ -5,9 +5,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -17,25 +15,28 @@ public class Merchant {
     private Long id_merchant;
     @ManyToOne
     private Account account;
-    @NotEmpty
+
     @Column(unique = true)
     private String name;
-    @NotEmpty
+
     @Column(unique = true)
     private String phone;
-    @NotEmpty
+
     @Column(unique = true)
     private String email;
-    private LocalDateTime open_time;
-    private LocalDateTime close_time;
+    private LocalTime open_time;
+    private LocalTime close_time;
+
     @Column(nullable = false)
     @ColumnDefault("false")
     private boolean isDelete;
+
     @ManyToOne
     private Activity activity;
     @ManyToOne
     private Address address_shop;
     private String image;
+
     @Transient
     private MultipartFile file;
 }
