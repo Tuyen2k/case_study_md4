@@ -1,6 +1,4 @@
 package com.example.case_md4.model;
-
-
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +23,7 @@ public class Product {
     @Transient
     private MultipartFile file;
     @Column(nullable = false)
-    @ColumnDefault("true")
+    @ColumnDefault("false")
     private boolean isDelete;
     @ManyToOne
     private Category category;
@@ -36,4 +34,5 @@ public class Product {
     @Column(nullable = false)
     @ColumnDefault("true")
     private boolean status;
+
 }
