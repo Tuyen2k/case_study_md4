@@ -9581,6 +9581,9 @@ a.text-dark:hover, a.text-dark:focus {
   z-index: 11;
   animation: action 1s infinite alternate;
 }
+.click-to-top {
+  animation: action 1s infinite alternate;
+}
 
 @keyframes action {
   0% {
