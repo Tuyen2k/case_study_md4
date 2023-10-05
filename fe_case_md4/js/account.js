@@ -34,14 +34,15 @@ function displayAccount(data) {
     document.getElementById("display_account").innerHTML = content;
 }
 
-// function deleteAccount(id){
-//     if (confirm("Are you sure?")){
-//         $.ajax({
-//             type: "DELETE",
-//             url: ""
-//         })
-//     }
-// }
+function deleteAccount(id){
+    if (confirm("Are you sure?")){
+        $.ajax({
+            type: "DELETE",
+            url: "",
+
+        })
+    }
+}
 
 function loginAccount(){
     let username = document.getElementById("username").value;
