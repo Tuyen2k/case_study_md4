@@ -7,6 +7,7 @@ import com.example.case_md4.model.Role;
 import com.example.case_md4.model.dto.UserDTO;
 import com.example.case_md4.service.IRoleService;
 import com.example.case_md4.service.IUserService;
+import com.example.case_md4.service.iplm.AddressServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,9 @@ public class AuthController {
 
     @Autowired
     private JwtService jwtService;
+
+    @Autowired
+    private AddressServiceImpl addressService;
 
     @Autowired
     private IUserService userService;
@@ -71,6 +75,8 @@ public class AuthController {
             user.setConfirm_password(passwordEncoder.encode(user.getConfirm_password()));
             Role role_user = roleService.findById(2L);
             user.setRole(role_user);
+            addressService.save(user.getAddress_delivery());
+            user.setAddress_delivery(addressService.findLast());
             userService.save(user);
             return new ResponseEntity<>("Register successfully!", HttpStatus.OK);
         }

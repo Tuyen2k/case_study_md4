@@ -10,7 +10,7 @@
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
@@ -41,7 +41,6 @@
                             <div class="card-body p-4 p-lg-5 text-black">
 
                                 <form>
-
                                     <div class="d-flex align-items-center mb-3 pb-1">
                                         <h1 class="m-0 display-5 font-weight-semi-bold">
                                             <span class="text-primary font-weight-bold border px-3 mr-1">Eat</span>The
@@ -52,18 +51,19 @@
                                         account</h5>
 
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form2Example17" class="form-control form-control-lg"/>
-                                        <label class="form-label" for="form2Example17">Username</label>
+                                        <input type="text" id="username" class="form-control form-control-lg"/>
+                                        <label class="form-label" for="username">Username</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form2Example27"
+                                        <input type="password" id="password"
                                                class="form-control form-control-lg"/>
-                                        <label class="form-label" for="form2Example27">Password</label>
+                                        <label class="form-label" for="password">Password</label>
                                     </div>
 
                                     <div class="pt-1 mb-4">
-                                        <button class="btn btn-dark btn-lg btn-block" type="button">Login</button>
+                                        <button class="btn btn-dark btn-lg btn-block" onclick="loginAccount()"
+                                           style="border-radius: 5px"      type="button">Login</button>
                                     </div>
 
                                     <a class="small text-muted" href="#!">Forgot password?</a>
@@ -83,3 +83,4 @@
 </section>
 </body>
 </html>
+<script src="js/account.js"></script>
