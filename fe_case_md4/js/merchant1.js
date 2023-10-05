@@ -25,17 +25,60 @@ function display(data) {
 function getDB() {
     findCity();
 }
-
+let arrProduct;
+let listDisplayPage;
 function getAllMerchant() {
     $.ajax({
         type: "GET",
         url: 'http://localhost:8080/api/merchant',
         success: function (data) {
-            console.log(data)
+            numberPage = 0;
+            arrProduct = data;
+            listDisplayPage = data.reverse();
             display(data)
+            showPage()
         }
     })
 }
+let numberPage;
+let totalPage;
+function showPage() {
+    let data = listDisplayPage;
+    let elementPage = 5;
+    totalPage = Math.ceil(data.length / elementPage);
+    // numberPage;
+    //lưu numberPage ra biến Global
+    let startPage = (numberPage * elementPage);
+    let endPage = ((numberPage + 1) * elementPage);
+    let subArr = data.slice(startPage, endPage);
+    display(subArr);
+    showFootPage();
+    console.log(totalPage)
+}
+function showFootPage() {
+    let content = `<div id="footPage">
+                     <button class="btn btn-outline-primary" id="previous" onclick="previousPage(numberPage)">Previous</button>
+                     <span>${numberPage + 1}/${totalPage}</span>
+                     <button class="btn btn-outline-primary" id="next" onclick="nextPage(numberPage)">Next</button>
+                     </div>`
+    document.getElementById("footPage").innerHTML = content;
+    if (numberPage === 0){
+        $("#previous").hide();
+    }else if (numberPage === totalPage - 1){
+        $("#next").hide();
+    }
+}
+function previousPage(page) {
+    numberPage = page - 1;
+    showPage();
+}
+
+function nextPage(page) {
+    numberPage = page + 1;
+    showPage();
+}
+
+
 
 function save() {
     let name = $("#name").val()
@@ -162,3 +205,4 @@ class Address {
         this.address_detail = ""
     }
 }
+
