@@ -1,6 +1,7 @@
 package com.example.case_md4.controller;
 
 import com.example.case_md4.model.Activity;
+import com.example.case_md4.model.Address;
 import com.example.case_md4.model.Merchant;
 import com.example.case_md4.service.IMerchantService;
 import com.example.case_md4.service.iplm.AddressServiceImpl;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,23 +60,39 @@ public class MerchantController {
             merchant.setImage(name);
         } else {
             if (Objects.equals(merchant.getId_merchant(), null)) {
-                merchant.setImage("fall-8192375_640.png");
+                merchant.setImage("do_an_mac_dinh.jpg");
             }
         }
-        addressService.save(merchant.getAddress_shop());
-        merchant.setAddress_shop(addressService.findLast());
+        Address address = addressService.findAddressU(merchant.getAddress_shop().getCity().getId_city(),
+                merchant.getAddress_shop().getDistrict().getId_district(),
+                merchant.getAddress_shop().getWard().getId_ward(),
+                merchant.getAddress_shop().getAddress_detail());
+        if (address == null) {
+            addressService.save(merchant.getAddress_shop());
+            address = addressService.findLast();
+        }
+        merchant.setAddress_shop(address);
         merchantService.save(merchant);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id_merchant}")
-    public ResponseEntity<Void> delete (@PathVariable Long id_merchant ){
+    public ResponseEntity<Void> delete(@PathVariable Long id_merchant) {
         Merchant merchant = merchantService.findById(id_merchant);
-        if(merchant != null){
+        if (merchant != null) {
             merchantService.delete(id_merchant);
-            return  new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("account/{id_account}")
+    public ResponseEntity<Merchant> findOneAccount(@PathVariable Long id_account) {
+        Merchant merchant = merchantService.findOneByAndAccount(id_account);
+        if (merchant != null) {
+            return new ResponseEntity<>(merchant, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/activity/{id_merchant}")
@@ -86,3 +104,13 @@ public class MerchantController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
+
+    @PostMapping("/search/{name}")
+    public ResponseEntity<List<Merchant>> findAllByName(@PathVariable String name) {
+        return new ResponseEntity<>(merchantService.findAllByNameProduct(name), HttpStatus.OK);
+    }
+
+
+}
+
+

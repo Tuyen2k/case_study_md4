@@ -45,4 +45,19 @@ public class MerchantService implements IMerchantService {
     public List<Merchant> findAllMerchant(){
         return merchantRepository.findAll();
     }
+
+public Merchant findOneByAndAccount (Long id_account){
+        Merchant merchant = merchantRepository.findOneByAndAccount(id_account);
+    if(merchant != null){
+        return  merchant;
+    }
+    return  null;
+}
+
+    @Override
+    public List<Merchant> findAllByNameProduct(String name) {
+        String search = "%"+name+"%";
+        return merchantRepository.findAllByNameProduct(search);
+    }
+
 }

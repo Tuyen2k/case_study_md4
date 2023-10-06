@@ -12,9 +12,12 @@ function show() {
         'http://localhost:8080/api/categories',
         'GET',
         function (response) {
+            let arr = response.sort((a, b) => a.id_category - b.id_category); // Sort the array by id_category
+            arr.reverse(); // Reverse the array to flip the order
+
             let str = "";
             let count = 0;
-            for (const c of response) {
+            for (const c of arr) {
                 str += ` <tr>
                   <td>${c.name}</td>
                   <td><button type="button" class="btn btn-primary" onclick="openForm(${c.id_category})" data-toggle="modal" data-target="#modalEdit" style="background-color: #D19C97;">Edit</button></td>

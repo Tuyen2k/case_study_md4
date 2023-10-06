@@ -1,13 +1,10 @@
 package com.example.case_md4.service.iplm;
 
-import com.example.case_md4.model.Merchant;
 import com.example.case_md4.model.Product;
 import com.example.case_md4.repository.IProductRepository;
 import com.example.case_md4.service.IMerchantService;
 import com.example.case_md4.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,7 +29,8 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public Product findById(Long id) {
         if (productRepository.findById(id).isPresent()
-                && !productRepository.findById(id).get().isDelete()){
+                && !productRepository.findById(id).get().isDelete()
+                && productRepository.findById(id).get().isStatus()){
             return productRepository.findById(id).get();
         } else {
             return null;
@@ -51,12 +49,25 @@ public class ProductServiceImpl implements IProductService {
        productRepository.save(product);
     }
 
+    @Override
+    public List<Product> displayNewProduct() {
+        return productRepository.displayNewProduct();
+    }
+
+    @Override
+    public List<Product> displayHighSales() {
+        return productRepository.displayHighSales();
+    }
+
     public List<Product> getProductInMerchant(Long id){
         List<Product> products = new ArrayList<>();
         for (Product p: findAll()) {
             if (p.getMerchant().getId_merchant().equals(id) && p.isStatus()){
-                products.add(p);
+                if (!p.isDelete()){
+                    products.add(p);
+                }
             }
         } return products;
     }
+
 }

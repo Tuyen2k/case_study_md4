@@ -74,4 +74,7 @@ public class AddressServiceImpl {
         iAddressRepository.save(address);
     }
 
+    public Address findAddressU(Long id_city,Long id_district,Long id_ward, String address_detail){
+        return iAddressRepository.findAddressU(id_city, id_district, id_ward, address_detail);
+    }
 }
