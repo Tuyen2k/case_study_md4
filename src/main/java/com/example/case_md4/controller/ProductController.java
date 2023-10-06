@@ -1,6 +1,8 @@
 package com.example.case_md4.controller;
+import com.example.case_md4.model.Category;
 import com.example.case_md4.model.Merchant;
 import com.example.case_md4.model.Product;
+import com.example.case_md4.service.ICategoryService;
 import com.example.case_md4.service.IMerchantService;
 import com.example.case_md4.service.IProductService;
 import com.example.case_md4.service.iplm.ProductServiceImpl;
@@ -13,9 +15,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin("*")
@@ -25,7 +31,10 @@ public class ProductController {
     IProductService iProductService;
     @Autowired
     ProductServiceImpl productService;
-
+    @Autowired
+    IMerchantService merchantService;
+    @Autowired
+    ICategoryService categoryService;
 
     @Value("${upload.path}")
     private String upload;
@@ -52,24 +61,55 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestPart("product") Product product,
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@RequestPart("product") Product product,
                                   @RequestPart(value = "file" , required = false)
                                   MultipartFile file){
-//        if (file.getSize() != 0){
-//            String name = file.getOriginalFilename();
-//            try {
-//                FileCopyUtils.copy(file.getBytes(), new File(upload + name));
-//            }catch (Exception e){
-//                e.printStackTrace();
-//            }
-//            product.setImage(name);
-//        }
-//        else {
-//            if (Objects.equals(product.getId_product(), null)){
-//                product.setImage("do_an_mac_dinh.jpg");
-//            }
-//        }
+        Product p = iProductService.findById(product.getId_product());
+            p.setName(product.getName());
+            p.setPrice(product.getPrice());
+            p.setPrice_sale(product.getPrice() * 0.95);
+            p.setCategory(product.getCategory());
+            p.setStatus(product.isStatus());
+            product = p;
+        if (file.getSize() != 0){
+            String name = file.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(file.getBytes(), new File(upload + name));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            product.setImage(name);
+        } else {
+            if (Objects.equals(product.getId_product(), null)){
+                product.setImage("do_an_mac_dinh.jpg");
+            }
+        }
+        iProductService.save(product);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@RequestPart("product") Product product,
+                                  @RequestPart(value = "file" , required = false)
+                                  MultipartFile file){
+            double price_sale = product.getPrice() * 0.95;
+            product.setPrice_sale(price_sale);
+            Merchant merchant = merchantService.findById(product.getMerchant().getId_merchant());
+            product.setMerchant(merchant);
+            product.setStatus(true);
+        if (file.getSize() != 0){
+            String name = file.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(file.getBytes(), new File(upload + name));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            product.setImage(name);
+        } else {
+            if (Objects.equals(product.getId_product(), null)){
+                product.setImage("do_an_mac_dinh.jpg");
+            }
+        }
         iProductService.save(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -82,5 +122,9 @@ public class ProductController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("/getCategory")
+    public ResponseEntity<List<Category>> getCategory(){
+        return new ResponseEntity<>(categoryService.findAll(), HttpStatus.OK);
     }
 }
