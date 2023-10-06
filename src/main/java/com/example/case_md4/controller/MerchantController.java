@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.method.P;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -103,7 +102,7 @@ public class MerchantController {
         merchantService.save(merchant);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-}
+
 
     @PostMapping("/search/{name}")
     public ResponseEntity<List<Merchant>> findAllByName(@PathVariable String name) {
