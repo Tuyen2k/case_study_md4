@@ -41,7 +41,7 @@ function getAllMerchant() {
             arrProduct = data;
             listDisplayPage = data.reverse();
             display(data)
-            showPage()
+            showPageS()
         }
     })
 }
@@ -49,9 +49,9 @@ function getAllMerchant() {
 let numberPage;
 let totalPage;
 
-function showPage() {
+function showPageS() {
     let data = listDisplayPage;
-    let elementPage = 5;
+    let elementPage = 9;
     totalPage = Math.ceil(data.length / elementPage);
     // numberPage;
     //lưu numberPage ra biến Global
@@ -80,12 +80,12 @@ function showFootPage() {
 
 function previousPage(page) {
     numberPage = page - 1;
-    showPage();
+    showPageS();
 }
 
 function nextPage(page) {
     numberPage = page + 1;
-    showPage();
+    showPageS();
 }
 
 
@@ -105,10 +105,10 @@ function save() {
     }
     let newMerchant = {
         account: {
-            id_account: 3
+            id_account: acc.id
         },
         activity: {
-            id_activity: 1
+            id_activity: 3
         },
         name: name,
         phone: phone,
@@ -397,7 +397,7 @@ function searchMerchant() {
             arrProduct = data;
             listDisplayPage = data.reverse();
             display(data)
-            showPage()
+            showPageS()
         }
     })
     //chặn sự kiện mặc định của thẻ
