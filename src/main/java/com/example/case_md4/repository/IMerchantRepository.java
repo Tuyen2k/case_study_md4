@@ -13,4 +13,6 @@ public interface IMerchantRepository extends JpaRepository<Merchant,Long> {
     @Query(value ="select * from merchant where account_id_account = ?",nativeQuery = true )
 
     Merchant findOneByAndAccount(Long id_account );
+    @Query(value = "select m.* from product as p join merchant as m on p.merchant_id_merchant = m.id_merchant where p.name like ? group by m.id_merchant;",nativeQuery = true)
+    List<Merchant> findAllByNameProduct(String name);
 }

@@ -71,7 +71,8 @@ function showFootPage() {
     document.getElementById("footPage").innerHTML = content;
     if (numberPage === 0) {
         $("#previous").hide();
-    } else if (numberPage === totalPage - 1) {
+    }
+    if (numberPage === totalPage - 1) {
         $("#next").hide();
     }
 }
@@ -214,6 +215,7 @@ class Address {
 
 let acc = JSON.parse(localStorage.getItem("account"));
 let address;
+
 function updateDisplayMerchant() {
     let id = acc.id;
     $.ajax({
@@ -238,7 +240,6 @@ function updateDisplayMerchant() {
 }
 
 
-
 function updateMerchant() {
     let name = $("#nameU").val()
     let phone = $("#phoneU").val()
@@ -254,7 +255,7 @@ function updateMerchant() {
         file = new File([], "", undefined)
     }
     let newMerchant = {
-        id_merchant : +localStorage.getItem("id_up_merchant"),
+        id_merchant: +localStorage.getItem("id_up_merchant"),
         account: {
             id_account: acc.id
         },
@@ -278,7 +279,7 @@ function updateMerchant() {
             },
             address_detail: address_detail
         },
-        image : localStorage.getItem("img")
+        image: localStorage.getItem("img")
     }
     let formData = new FormData();
     formData.append("file", file);
@@ -301,32 +302,31 @@ function updateMerchant() {
     event.preventDefault()
 
 
-
-
 }
+
 function findCityU() {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/api/address/city",
-            success: function (data) {
-                let content = `<select id="cityU" onchange="findDistrictU()"  class="select">`;
-                content += '<option value="">Choice a city...</option>';
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].id_city === address.city.id_city) {
-                        content += '<option value="' + data[i].id_city + '" selected>' + data[i].name + '</option>';
-                        continue
-                    }
-                    content += '<option value="' + data[i].id_city + '">' + data[i].name + '</option>';
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/address/city",
+        success: function (data) {
+            let content = `<select id="cityU" onchange="findDistrictU()"  class="select">`;
+            content += '<option value="">Choice a city...</option>';
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].id_city === address.city.id_city) {
+                    content += '<option value="' + data[i].id_city + '" selected>' + data[i].name + '</option>';
+                    continue
                 }
-                content += "</select>";
-                document.getElementById("select_cityU").innerHTML = content;
+                content += '<option value="' + data[i].id_city + '">' + data[i].name + '</option>';
             }
-        })
+            content += "</select>";
+            document.getElementById("select_cityU").innerHTML = content;
+        }
+    })
 }
 
 function findDistrictU() {
     let id_city = $("#cityU").val()
-    if (id_city == -1){
+    if (id_city == -1) {
         id_city = address.city.id_city
     }
     $.ajax({
@@ -350,7 +350,7 @@ function findDistrictU() {
 
 function findWardU() {
     let id_district = $("#districtU").val()
-    if (id_district == -1){
+    if (id_district == -1) {
         id_district = address.district.id_district
     }
     $.ajax({
@@ -373,18 +373,35 @@ function findWardU() {
 }
 
 function checkMerchant() {
-   if (acc !== null){
-       let role = acc.authorities[0].authority
-       console.log(role)
-       if (role === "ROLE_MERCHANT"){
-           $("#from_register").hide()
-       }else if (role === "ROLE_USER"){
-           $("#from_update").hide()
-       }
-   }
-   else {
-       $("#merchant").hide()
-   }
+    if (acc !== null) {
+        let role = acc.authorities[0].authority
+        console.log(role)
+        if (role === "ROLE_MERCHANT") {
+            $("#from_register").hide()
+        } else if (role === "ROLE_USER") {
+            $("#from_update").hide()
+        }
+    } else {
+        $("#merchant").hide()
+    }
 }
+
+function searchMerchant() {
+    let search = $("#search").val()
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/api/merchant/search/" + search,
+        success: function (data) {
+            numberPage = 0;
+            arrProduct = data;
+            listDisplayPage = data.reverse();
+            display(data)
+            showPage()
+        }
+    })
+    //chặn sự kiện mặc định của thẻ
+    event.preventDefault();
+}
+
 
 
