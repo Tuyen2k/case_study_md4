@@ -404,5 +404,38 @@ function searchMerchant() {
     event.preventDefault();
 }
 
+function searchCategory(id_category){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/merchant/categories/" + id_category,
+        success: function (data) {
+            console.log(data)
+            numberPage = 0;
+            arrProduct = data;
+            listDisplayPage = data.reverse();
+            display(data)
+            showPage()
+        }
+    })
+    event.preventDefault();
+}
 
+$.getJSON('http://localhost:8080/api/categories', function(response) {
+    let dropdownMenu = $('#navbar-vertical .navbar-nav');
+    dropdownMenu.empty();
 
+    response.forEach(function(category) {
+        let menuItem = $('<a>', {
+            class: 'nav-item nav-link',
+            text: category.name,
+            // href: "shop.html?category=" + category.id_category
+
+        });
+        menuItem.click(function (){
+            searchCategory(category.id_category)
+        })
+        dropdownMenu.append(menuItem);
+    });
+}).fail(function(error) {
+    console.log(error);
+});

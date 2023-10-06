@@ -10,4 +10,5 @@ public interface IMerchantService extends IGenerateService<Merchant>{
   Merchant findOneByAndAccount(Long id_account );
   List<Merchant> findAllByNameProduct(String name);
 
+  List<Merchant> findAllByCategory(Long id);
 }
