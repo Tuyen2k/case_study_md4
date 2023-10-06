@@ -131,7 +131,7 @@
                                 <a href="checkout.html" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
-                        <a href="save_merchant.html" class="nav-item nav-link active">Contact</a>
+                        <a href="save_merchant.html" id="merchant" class="nav-item nav-link active">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         <a href="" class="nav-item nav-link">Login</a>
@@ -146,7 +146,7 @@
 
 
 <!-- Page Header Start -->
-<div class="container-fluid bg-secondary mb-5">
+<div class="container-fluid bg-secondary mb-5" id="form create">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
         <h1 class="font-weight-semi-bold text-uppercase mb-3">Merchant</h1>
         <div class="d-inline-flex">
@@ -160,7 +160,7 @@
 
 
 <!-- Contact Start -->
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-5" id="from_register">
     <div class="text-center mb-4">
         <h2 class="section-title px-5"><span class="px-2">Register Merchant</span></h2>
     </div>
@@ -233,8 +233,8 @@
                         <p class="help-block text-danger"></p>
                     </div>
                     <div>
-                        <button class="btn btn-primary py-2 px-4" onclick="save()" type="button" id="create">
-                          CreateMerchant
+                        <button style="border-radius: 5px" class="btn btn-primary py-2 px-4" onclick="save()" type="button" id="create">
+                          Create
                         </button>
                     </div>
                 </form>
@@ -263,7 +263,7 @@
 
 <!-- Contact End -->
 <!-- Contact Start -->
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-5" id="form_update">
     <div class="text-center mb-4">
         <h2 class="section-title px-5"><span class="px-2">Update Merchant</span></h2>
     </div>
@@ -304,22 +304,19 @@
                     <div class="row">
                         <div class="col-md-4 mb-4" id="select_cityU">
                             <select class="select" id="cityU">
-                                <option>Choice city</option>
+                                <option value="-1">Choice city</option>
                             </select>
                         </div>
                         <div class="col-md-4 mb-4" id="select_districtU">
                             <select class="select" id="districtU" >
-                                <option>Choice district</option>
-                                <option>Choice the district a</option>
-                                <option>Choice the district b</option>
+                                <option value="-1">Choice district</option>
+
                             </select>
 
                         </div>
                         <div class="col-md-4 mb-4" id="select_wardU">
                             <select class="select" id ="wardU">
-                                <option>Choice ward</option>
-                                <option>Choice the ward a</option>
-                                <option>Choice the ward b</option>
+                                <option  value="-1">Choice ward</option>
                             </select>
 
                         </div>
@@ -336,8 +333,8 @@
                         <p class="help-block text-danger"></p>
                     </div>
                     <div>
-                        <button class="btn btn-primary py-2 px-4" onclick="update()" type="button" id="update">
-                            UpdateMerchant
+                        <button style="border-radius: 5px" class="btn btn-primary py-2 px-4" onclick="updateMerchant()" type="button" id="update">
+                            Update
                         </button>
                     </div>
                 </form>
