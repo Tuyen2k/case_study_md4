@@ -101,4 +101,14 @@ public class AuthController {
         userService.save(account);
         return ResponseEntity.ok("Update success!!!");
     }
+
+    @PostMapping("/up_role/{id}")
+    public ResponseEntity<Void> upRole(@RequestBody Role role,
+                                       @PathVariable Long id){
+        Account account = userService.findById(id);
+        account.setRole(role);
+        userService.save(account);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
