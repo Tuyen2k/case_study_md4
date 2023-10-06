@@ -10,8 +10,13 @@ import java.util.List;
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
     @Query(
-            value = "SELECT * FROM product p ORDER BY p.purchase DESC LIMIT 6",
+            value = "SELECT * FROM product p WHERE p.category_id_category != 4 ORDER BY p.id_product DESC LIMIT 6",
             nativeQuery = true
     )
-    List<Product> displayProductByPurchase();
+    List<Product> displayNewProduct();
+    @Query(
+            value = "SELECT * FROM product p ORDER BY p.purchase DESC LIMIT 8",
+            nativeQuery = true
+    )
+    List<Product> displayHighSales();
 }

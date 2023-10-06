@@ -16,5 +16,6 @@ public interface IProductService extends IGenerateService<Product> {
 
     void delete(Long id);
 
-    List<Product> displayProductByPurchase();
+    List<Product> displayNewProduct();
+    List<Product> displayHighSales();
 }
