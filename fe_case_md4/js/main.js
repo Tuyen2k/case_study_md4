@@ -102,3 +102,10 @@
     
 })(jQuery);
 
+function logout(){
+    if (confirm("Are you sure you want logout?")){
+        $("#login").hide()
+        $("#register").hide()
+        localStorage.removeItem("account")
+    }
+}
