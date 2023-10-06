@@ -380,7 +380,7 @@ function checkMerchant() {
         if (role === "ROLE_MERCHANT") {
             $("#from_register").hide()
         } else if (role === "ROLE_USER") {
-            $("#from_update").hide()
+            $("#form_update_merchant").hide()
         }
     } else {
         $("#merchant").hide()
