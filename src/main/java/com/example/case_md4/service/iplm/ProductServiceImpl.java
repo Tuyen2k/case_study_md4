@@ -32,7 +32,8 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public Product findById(Long id) {
         if (productRepository.findById(id).isPresent()
-                && !productRepository.findById(id).get().isDelete()){
+                && !productRepository.findById(id).get().isDelete()
+                && productRepository.findById(id).get().isStatus()){
             return productRepository.findById(id).get();
         } else {
             return null;
@@ -55,7 +56,9 @@ public class ProductServiceImpl implements IProductService {
         List<Product> products = new ArrayList<>();
         for (Product p: findAll()) {
             if (p.getMerchant().getId_merchant().equals(id) && p.isStatus()){
-                products.add(p);
+                if (!p.isDelete()){
+                    products.add(p);
+                }
             }
         } return products;
     }
