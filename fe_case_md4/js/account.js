@@ -38,8 +38,11 @@ function deleteAccount(id){
     if (confirm("Are you sure?")){
         $.ajax({
             type: "DELETE",
-            url: "",
-
+            url: `http://localhost:8080/api/auth/${id}`,
+            success: function (data){
+                alert(data)
+                getAllAccount()
+            }
         })
     }
 }

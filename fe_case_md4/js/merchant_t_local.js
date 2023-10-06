@@ -12,6 +12,7 @@ function displayMerchant(data) {
     let content = "";
     for (let i = 0; i < data.length; i++) {
         content += `<tr> <td class="align-middle">${i + 1}</td> 
+                          <td class="align-middle">${data[i].account.name}</td> 
                           <td class="align-middle">${data[i].name}</td> 
                           <td class="align-middle">${data[i].email}</td>
                           <td class="align-middle">${data[i].phone}</td>
