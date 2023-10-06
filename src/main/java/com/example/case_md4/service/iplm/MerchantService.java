@@ -54,4 +54,9 @@ public Merchant findOneByAndAccount (Long id_account){
         return merchantRepository.findAllByNameProduct(search);
     }
 
+
+    @Override
+    public List<Merchant> findAllByCategory(Long id) {
+        return merchantRepository.findAllByCategory(id);
+    }
 }

@@ -90,6 +90,12 @@ public class MerchantController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/categories/{id_category}")
+    public ResponseEntity<List<Merchant>> getAllByCategory(@PathVariable Long id_category) {
+        return new ResponseEntity<>(merchantService.findAllByCategory(id_category), HttpStatus.OK);
+    }
+
+
     @PostMapping("/search/{name}")
     public ResponseEntity<List<Merchant>> findAllByName(@PathVariable String name) {
         return new ResponseEntity<>(merchantService.findAllByNameProduct(name), HttpStatus.OK);
