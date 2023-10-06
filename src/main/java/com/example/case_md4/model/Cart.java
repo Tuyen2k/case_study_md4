@@ -14,4 +14,12 @@ public class Cart {
     private Account account;
     @ManyToOne
     private Merchant merchant;
+
+    public Cart() {
+    }
+
+    public Cart(Account account, Merchant merchant) {
+        this.account = account;
+        this.merchant = merchant;
+    }
 }
