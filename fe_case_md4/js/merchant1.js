@@ -1,6 +1,6 @@
 function display(data) {
     let content = "";
-    for (let i = 0; i < data.length; i++) {
+    for (let i  = 0; i < data.length; i++) {
         content += "<div class=\"col-lg-4 col-md-6 col-sm-12 pb-1\">\n" +
             `<div class=\"card product-item border-0 mb-4\">\n` +
             `<div class=\"card-header product-img position-relative overflow-hidden bg-transparent border p-0\">\n` +
@@ -32,6 +32,7 @@ function getAllMerchant() {
         type: "GET",
         url: 'http://localhost:8080/api/merchant',
         success: function (data) {
+            console.log(data)
             numberPage = 0;
             arrProduct = data;
             listDisplayPage = data.reverse();

@@ -1,4 +1,5 @@
 package com.example.case_md4.controller;
+
 import com.example.case_md4.model.Category;
 import com.example.case_md4.model.Merchant;
 import com.example.case_md4.model.Product;
@@ -8,11 +9,6 @@ import com.example.case_md4.service.IProductService;
 import com.example.case_md4.service.iplm.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
@@ -124,7 +120,15 @@ public class ProductController {
         }
     }
     @GetMapping("/getCategory")
-    public ResponseEntity<List<Category>> getCategory(){
+    public ResponseEntity<List<Category>> getCategory() {
         return new ResponseEntity<>(categoryService.findAll(), HttpStatus.OK);
+    }
+    @GetMapping("/list")
+    public ResponseEntity<List<Product>> displayNewProduct(){
+        return new ResponseEntity<>(productService.displayNewProduct(), HttpStatus.OK);
+    }
+    @GetMapping("/highsales")
+    public ResponseEntity<List<Product>> displayBySales(){
+        return new ResponseEntity<>(productService.displayHighSales(), HttpStatus.OK);
     }
 }
