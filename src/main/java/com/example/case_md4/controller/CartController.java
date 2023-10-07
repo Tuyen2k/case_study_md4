@@ -66,6 +66,7 @@ public class CartController {
                 if (!Objects.equals(cartDetailDB, null)) {
                     //update quantity
                     cartDetail.setId_cartDetail(cartDetailDB.getId_cartDetail());
+                    cartDetail.setQuantity(cartDetailDB.getQuantity() + cartDetail.getQuantity());
                 }
             }
             //merchant cart != merchant_product
