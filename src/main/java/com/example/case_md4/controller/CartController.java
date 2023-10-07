@@ -111,7 +111,7 @@ public class CartController {
                                              @RequestParam("status") Long id_status) {
         List<Cart> carts = iCartService.findByAccount(id_account);
         if (carts.isEmpty()) {
-            return ResponseEntity.ok("Not found!");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             List<Long> id_carts = new ArrayList<>();
             for (Cart c: carts){
