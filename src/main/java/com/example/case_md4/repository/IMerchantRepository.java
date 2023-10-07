@@ -2,6 +2,7 @@ package com.example.case_md4.repository;
 
 import com.example.case_md4.model.Merchant;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,7 @@ public interface IMerchantRepository extends JpaRepository<Merchant,Long> {
 
     @Query(nativeQuery = true, value = "select * from merchant where product_id_product = ?;")
     Merchant findByProduct(Long id_product);
+    @Query(value = "SELECT m.*, p.name FROM product p JOIN merchant m ON p.merchant_id_merchant = m.id_merchant WHERE p.category_id_category = ?",nativeQuery = true)
+    List<Merchant> findAllByCategory(Long id);
+
 }
