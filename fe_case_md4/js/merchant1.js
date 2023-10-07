@@ -1,6 +1,8 @@
 function display(data) {
     let content = "";
     for (let i  = 0; i < data.length; i++) {
+        let idAcc = data[i].account.id_account
+        let idMerchant = data[i].id_merchant
         content += "<div class=\"col-lg-4 col-md-6 col-sm-12 pb-1\">\n" +
             `<div class=\"card product-item border-0 mb-4\">\n` +
             `<div class=\"card-header product-img position-relative overflow-hidden bg-transparent border p-0\">\n` +
@@ -14,12 +16,17 @@ function display(data) {
             "                                </div>\n" +
             "                            </div>\n" +
             "                            <div class=\"card-footer d-flex justify-content-between bg-light border\">\n" +
-            `                                <a href=\"\" class=\"btn btn-sm text-dark p-0\"><i class=\"fas fa-eye text-primary mr-1\"></i>View Detail</a>\n"` +
+            `                                <button onclick='showDetail(${idAcc}, ${idMerchant})' href=\"\" class=\"btn btn-sm text-dark p-0\"><i class=\"fas fa-eye text-primary mr-1\"></i>View Detail</button>\n"` +
             "                            </div>\n" +
             "                        </div>\n" +
             "                    </div>"
     }
     document.getElementById("products").innerHTML = content;
+}
+function showDetail(idAcc, idMerchant) {
+    localStorage.setItem("idAcc", idAcc)
+    localStorage.setItem("idMer", idMerchant)
+    window.location.href = "http://localhost:63342/case_md4/fe_case_md4/detail.html"
 }
 
 function getDB() {
@@ -414,7 +421,7 @@ function searchCategory(id_category){
             arrProduct = data;
             listDisplayPage = data.reverse();
             display(data)
-            showPage()
+            showPageInUser()
         }
     })
     event.preventDefault();

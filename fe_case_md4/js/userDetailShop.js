@@ -1,6 +1,6 @@
-let arrProduct;
-let listDisplayPage;
-function showMerchant(id)
+let arrProductInUser;
+let listDisplayPageInUser;
+function showMerchantInUser(id)
 {$.ajax({
     headers: {
         'Accept': 'application/json',
@@ -10,9 +10,9 @@ function showMerchant(id)
     url: "http://localhost:8080/api/products/showProduct/" + id,
     success: function (data) {
         localStorage.setItem("idMerchant", id)
-        arrProduct = data;
-        listDisplayPage = data.reverse();
-        numberPage = 0;
+        arrProductInUser = data;
+        listDisplayPageInUser = data.reverse();
+        numberPageInUser = 0;
         var content =
             `  <div class="container-fluid py-5">\n` +
             `        <div class="row px-xl-5">\n` +
@@ -117,59 +117,59 @@ function showMerchant(id)
             `        </div>` +
             `  </div>`;
         document.getElementById("showProductInMerchant").innerHTML = content;
-        showPage()
+        showPageInUser()
     }
 })
 }
-function subtractionQuantity(){
-    let value = $("#valueQuantity")
-    return --value
-}
-function additionQuantity(){
-    let value = $("#valueQuantity")
-    return ++value
-}
-function showFootPage() {
+// function subtractionQuantity(){
+//     let value = $("#valueQuantity")
+//     return --value
+// }
+// function additionQuantity(){
+//     let value = $("#valueQuantity")
+//     return ++value
+// }
+function showFootPageInUser() {
     document.getElementById("footPage").innerHTML = `<div style="display: flex;margin-left: 45%" id="footPage">
-                     <button class="btn btn-outline-primary click-to-top" id="previous" onclick="previousPage(numberPage)">Previous</button>
-                     <span>${numberPage + 1}/${totalPage}</span>
-                     <button class="btn btn-outline-primary click-to-top" id="next" onclick="nextPage(numberPage)">Next</button>
+                     <button class="btn btn-outline-primary click-to-top" id="previous" onclick="previousPageInUser(numberPageInUser)">Previous</button>
+                     <span>${numberPageInUser + 1}/${totalPageInUser}</span>
+                     <button class="btn btn-outline-primary click-to-top" id="next" onclick="nextPageInUser(numberPageInUser)">Next</button>
                      </div>`
-    if (numberPage === 0){
+    if (numberPageInUser === 0){
         $("#previous").hide();
-    }else if (numberPage === totalPage - 1){
+    }else if (numberPageInUser === totalPageInUser - 1){
         $("#next").hide();
     }
 }
 
-let numberPage;
-let totalPage;
+let numberPageInUser;
+let totalPageInUser;
 
-function showPage() {
-    let data = listDisplayPage;
+function showPageInUser() {
+    let data = listDisplayPageInUser;
     let elementPage = 4;
-    totalPage = Math.ceil(data.length / elementPage);
+    totalPageInUser = Math.ceil(data.length / elementPage);
     // numberPage;
     //lưu numberPage ra biến Global
-    let startPage = (numberPage * elementPage);
-    let endPage = ((numberPage + 1) * elementPage);
+    let startPage = (numberPageInUser * elementPage);
+    let endPage = ((numberPageInUser + 1) * elementPage);
     let subArr = data.slice(startPage, endPage);
-    productsStart(subArr);
-    showFootPage();
+    productsStartInUser(subArr);
+    showFootPageInUser();
 }
 
 
-function previousPage(page) {
-    numberPage = page - 1;
-    showPage();
+function previousPageInUser(page) {
+    numberPageInUser = page - 1;
+    showPageInUser();
 }
 
-function nextPage(page) {
-    numberPage = page + 1;
-    showPage();
+function nextPageInUser(page) {
+    numberPageInUser = page + 1;
+    showPageInUser();
 }
 
-function productsStart(data) {
+function productsStartInUser(data) {
     var content = '<div class="text-center mb-4">\n' +
         '                       <h2 class="section-title px-5">' +
         '                           <span class="px-2">Có thể bạn sẽ thích</span>' +

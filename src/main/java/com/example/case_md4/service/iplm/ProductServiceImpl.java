@@ -1,5 +1,6 @@
 package com.example.case_md4.service.iplm;
 
+import com.example.case_md4.model.Merchant;
 import com.example.case_md4.model.Product;
 import com.example.case_md4.repository.IProductRepository;
 import com.example.case_md4.service.IMerchantService;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 @Service
 public class ProductServiceImpl implements IProductService {
     @Autowired
@@ -70,4 +73,14 @@ public class ProductServiceImpl implements IProductService {
         } return products;
     }
 
+
+    public Merchant checkMerchant(Long account){
+        Merchant merchant = null;
+        for (Merchant m : merchantService.findAll()) {
+            if (Objects.equals(m.getAccount().getId_account(), account)){
+                merchant = m;
+             return merchant;
+            }
+        } return merchant;
+    }
 }
