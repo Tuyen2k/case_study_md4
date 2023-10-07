@@ -107,7 +107,7 @@ function displayCartUser(data){
                          </td>
                          <td class="align-middle">${data[i].quantity * data[i].price} VND</td>
                          <td class="align-middle">${data[i].product.merchant.name}</td>
-                         <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-check"></i></button></td>
+                         <td class="align-middle"><button class="btn btn-sm btn-primary" onclick="addBill(${data[i].id_cartDetail})"><i class="fa fa-check"></i></button></td>
                          <td class="align-middle"><button class="btn btn-sm btn-primary" onclick="deleteCart(${data[i].id_cartDetail})"><i class="fa fa-times"></i></button></td>
                     </tr>`
     }
@@ -167,4 +167,24 @@ function deleteCart(id_cart_detail){
             }
         })
     }
+}
+
+function addBill(id_cart_detail){
+    let status = {
+        id_status : 8
+    }
+    $.ajax({
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        type:"POST",
+        url:`http://localhost:8080/api/carts/user/status/${id_cart_detail}`,
+        data: JSON.stringify(status),
+        success: function (){
+            alert("Add bill success!")
+        },
+        error(er){
+            alert(er)
+        }
+    })
 }

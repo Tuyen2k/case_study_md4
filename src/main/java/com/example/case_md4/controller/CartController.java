@@ -120,6 +120,17 @@ public class CartController {
         }
     }
 
+    @PostMapping("/user/status/{id_cart_detail}")
+    public ResponseEntity<Void> updateStatus(@PathVariable Long id_cart_detail,
+                                             @RequestBody Status status){
+        CartDetail cartDetail = iCartDetailService.findById(id_cart_detail);
+        if (Objects.equals(cartDetail, null)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        cartDetail.setStatus(status);
+        iCartDetailService.save(cartDetail);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 }
