@@ -132,5 +132,25 @@ public class CartController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/user/status/all/{id_account}")
+    public ResponseEntity<Void> updateAllStatus(@PathVariable Long id_account,
+                                                @RequestBody Status status){
+        List<Cart> carts = iCartService.findByAccount(id_account);
+        if (carts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            List<Long> id_carts = new ArrayList<>();
+            for (Cart c: carts){                                     //lấy list id_cart
+                id_carts.add(c.getId_cart());
+            }
+            List<CartDetail> cartDetails = iCartDetailService.findAllByCarts(id_carts);    //lấy list cart detail theo id_cart
+            for (CartDetail cartDetail : cartDetails){
+                cartDetail.setStatus(status);                                 //set lại status cho cả list và lưu
+                iCartDetailService.save(cartDetail);
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
 
 }

@@ -182,9 +182,35 @@ function addBill(id_cart_detail){
         data: JSON.stringify(status),
         success: function (){
             alert("Add bill success!")
+            window.location.href = "cart.html"
         },
         error(er){
             alert(er)
         }
     })
+}
+
+function addALLBill(){
+    if (confirm("Are you sure?")){
+        let id_account = acc.id;
+        let status = {
+            id_status : 8
+        }
+        $.ajax({
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            type:"POST",
+            url:`http://localhost:8080/api/carts/user/status/all/${id_account}`,
+            data: JSON.stringify(status),
+            success: function (){
+                alert("Add bill success!")
+                window.location.href = "cart.html"
+            },
+            error(er){
+                alert(er)
+            }
+        })
+    }
+
 }
