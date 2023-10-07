@@ -2,6 +2,7 @@ class Account {
     id
     name
     email
+    phone
     address_delivery
     delete
     role
@@ -75,8 +76,11 @@ function loginAccount(){
 }
 
 function registerAccount(){
-    let username = $("#username").val();
+    let first = $("#first_name").val();
+    let last = $("#last_name").val();
+    let username = first + " "+ last;
     let email = $("#email").val();
+    let phone = $("#phone").val();
     let password = $("#password").val();
     let confirm_password = $("#confirm_password").val();
     let city = $("#city").val();
@@ -86,6 +90,7 @@ function registerAccount(){
     let account = {
         name : username,
         email : email,
+        phone : phone,
         password : password,
         confirm_password : confirm_password,
         address_delivery : {

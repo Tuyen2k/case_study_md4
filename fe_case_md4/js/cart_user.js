@@ -157,7 +157,7 @@ function minusQuantityCart(id_cart_detail) {
 }
 
 function deleteCart(id_cart_detail){
-    if ("Are you sure?"){
+    if (confirm("Are you sure?")){
         $.ajax({
             type: "DELETE",
             url:`http://localhost:8080/api/carts/user/delete/${id_cart_detail}`,
