@@ -108,7 +108,7 @@ function displayCartUser(data){
                          <td class="align-middle">${data[i].quantity * data[i].price} VND</td>
                          <td class="align-middle">${data[i].product.merchant.name}</td>
                          <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-check"></i></button></td>
-                         <td class="align-middle"><button class="btn btn-sm btn-primary" ><i class="fa fa-times"></i></button></td>
+                         <td class="align-middle"><button class="btn btn-sm btn-primary" onclick="deleteCart(${data[i].id_cartDetail})"><i class="fa fa-times"></i></button></td>
                     </tr>`
     }
     document.getElementById("cart_user").innerHTML = content
@@ -153,5 +153,18 @@ function minusQuantityCart(id_cart_detail) {
                 }
             })
         }
+    }
+}
+
+function deleteCart(id_cart_detail){
+    if ("Are you sure?"){
+        $.ajax({
+            type: "DELETE",
+            url:`http://localhost:8080/api/carts/user/delete/${id_cart_detail}`,
+            success: function (data){
+                alert(data)
+                window.location.href = "cart.html"
+            }
+        })
     }
 }
