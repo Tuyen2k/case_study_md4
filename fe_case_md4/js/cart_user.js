@@ -85,10 +85,14 @@ function getCartUser() {
                     $("#add_all").hide()
                     alert("Shopping cart is empty!")
                 }
+            },
+            error: function (){
+                $("#add_all").hide()
+                alert("Shopping cart is empty!")
             }
         })
 }
-getCartUser()
+
 function displayCartUser(data){
     let content = "";
     for (let i = 0; i < data.length; i++) {

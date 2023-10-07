@@ -166,6 +166,10 @@ function getBill(){
                 $("#show_order").hide()
                 alert("Bill order is empty!")
             }
+        },
+        error: function () {
+            $("#show_order").hide()
+            alert("Bill order is empty!")
         }
     })
 }
@@ -243,9 +247,6 @@ window.addEventListener('beforeunload', function(event) {
         url:`http://localhost:8080/api/carts/user/status/all/${id_account}?status=8`,
         data: JSON.stringify(status),
         success: function (){
-        },
-        error(er){
-            alert(er)
         }
     })
 });

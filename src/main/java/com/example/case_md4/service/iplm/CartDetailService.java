@@ -27,8 +27,8 @@ public class CartDetailService implements ICartDetailService {
         cartDetailRepository.save(cartDetail);
     }
     @Override
-    public CartDetail findByProduct(Long id_product){
-        return cartDetailRepository.findByProduct(id_product);
+    public CartDetail findByProduct(Long id_product, Long id_cart){
+        return cartDetailRepository.findByProduct(id_product, id_cart);
     }
 
     @Override

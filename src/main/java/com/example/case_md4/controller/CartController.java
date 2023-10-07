@@ -61,7 +61,7 @@ public class CartController {
                 }
             }                      //merchant cart = merchant_product
             if (flag) {
-                CartDetail cartDetailDB = iCartDetailService.findByProduct(cartDetail.getProduct().getId_product());
+                CartDetail cartDetailDB = iCartDetailService.findByProduct(cartDetail.getProduct().getId_product(), cart.getId_cart());
                 //product đã có trong cart_detail
                 if (!Objects.equals(cartDetailDB, null)) {
                     //update quantity
@@ -99,7 +99,7 @@ public class CartController {
     public ResponseEntity<String> deleteCartDetail(@PathVariable Long id_cart_detail) {
         CartDetail cartDetail = iCartDetailService.findById(id_cart_detail);
         if (Objects.equals(cartDetail, null)) {
-            return ResponseEntity.ok("Not found!");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             iCartDetailService.delete(cartDetail);
             return ResponseEntity.ok("Delete success!");
