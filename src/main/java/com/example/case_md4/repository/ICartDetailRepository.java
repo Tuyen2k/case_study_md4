@@ -13,8 +13,8 @@ public interface ICartDetailRepository extends JpaRepository<CartDetail, Long> {
     @Query(nativeQuery = true, value = "select * from cart_detail where product_id_product = ?;")
     CartDetail findByProduct(Long id_product);
 
-    @Query(nativeQuery = true, value = "select * from cart_detail where status_id_status = 7 and cart_id_cart in :carts")
-    List<CartDetail> findAllByCart(@Param("carts") List<Long> id_carts);
+    @Query(nativeQuery = true, value = "select * from cart_detail where status_id_status = :id_status and cart_id_cart in :carts")
+    List<CartDetail> findAllByCart(@Param("id_status")Long id_status, @Param("carts") List<Long> id_carts);
 
 
 }

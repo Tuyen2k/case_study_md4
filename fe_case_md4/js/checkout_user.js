@@ -18,7 +18,7 @@ function getAccount() {
 getDBBillAddress()
 function getDBBillAddress(){
     getAccount()
-
+    getBill()
 }
 
 function displayBillAddress(data){
@@ -152,3 +152,100 @@ function findWardB() {
         }
     })
 }
+
+function getBill(){
+    let id_account = acc.id;
+    $.ajax({
+        type: "GET",
+        url: `http://localhost:8080/api/carts/user/${id_account}?status=8`,
+        success: function (data){
+            if (data.length !== 0){
+                $("#order").show()
+                displayBill(data)
+            }else{
+                $("#show_order").hide()
+                alert("Bill order is empty!")
+            }
+        }
+    })
+}
+
+function displayBill(data){
+    let total= 0
+    let content =`<h5 class="font-weight-medium mb-3">Products</h5>`;
+    for (let i = 0; i < data.length; i++) {
+        content +=`<div class="d-flex justify-content-between">
+                    <p class="col-md-7">${data[i].product.name}</p>
+                    <p class="col-md-4">${data[i].price * data[i].quantity} VND</p>
+                    <p class="col-md-1"><button class="btn btn-sm btn-primary" onclick="deleteBill(${data[i].id_cartDetail})">
+                    <i class="fa fa-times">
+                    </i></button></p>
+                    </div>`;
+        total += data[i].price * data[i].quantity;
+    }
+    document.getElementById("show_bill").innerHTML = content
+    document.getElementById("total").innerText = total +" VND"
+}
+
+function deleteBill(id_cart_detail){
+    if (confirm("Are you sure want remove from bill?")){
+        let status = {
+            id_status : 7
+        }
+        $.ajax({
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            type: "POST",
+            url:`http://localhost:8080/api/carts/user/status/${id_cart_detail}`,
+            data: JSON.stringify(status),
+            success:function (){
+                alert("Remove from bill success!")
+                window.location.href = "checkout.html"
+            }
+        })
+    }
+
+}
+
+function orderCart(){
+    let id_account = acc.id;
+    let status = {
+        id_status : 1
+    }
+    $.ajax({
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        type:"POST",
+        url:`http://localhost:8080/api/carts/user/status/all/${id_account}?status=8`,
+        data: JSON.stringify(status),
+        success: function (){
+            alert("Order success, waiting confirm to merchant!")
+            window.location.href = "checkout.html"
+        },
+        error(er){
+            alert(er)
+        }
+    })
+}
+
+window.addEventListener('beforeunload', function(event) {
+    let id_account = acc.id;
+    let status = {
+        id_status : 7
+    }
+    $.ajax({
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        type:"POST",
+        url:`http://localhost:8080/api/carts/user/status/all/${id_account}?status=8`,
+        data: JSON.stringify(status),
+        success: function (){
+        },
+        error(er){
+            alert(er)
+        }
+    })
+});

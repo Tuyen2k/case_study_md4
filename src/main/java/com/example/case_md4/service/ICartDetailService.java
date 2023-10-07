@@ -8,5 +8,5 @@ public interface ICartDetailService extends IGenerateService<CartDetail> {
     CartDetail findByProduct(Long id_product);
     void delete(CartDetail cartDetail);
 
-    List<CartDetail> findAllByCarts(List<Long> id_carts);
+    List<CartDetail> findAllByCarts(Long id_status ,List<Long> id_carts);
 }

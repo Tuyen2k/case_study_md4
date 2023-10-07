@@ -107,7 +107,8 @@ public class CartController {
     }
 
     @GetMapping("/user/{id_account}")
-    public ResponseEntity<?> findAllCartUser(@PathVariable Long id_account) {
+    public ResponseEntity<?> findAllCartUser(@PathVariable Long id_account,
+                                             @RequestParam("status") Long id_status) {
         List<Cart> carts = iCartService.findByAccount(id_account);
         if (carts.isEmpty()) {
             return ResponseEntity.ok("Not found!");
@@ -116,7 +117,7 @@ public class CartController {
             for (Cart c: carts){
                 id_carts.add(c.getId_cart());
             }
-           return ResponseEntity.ok(iCartDetailService.findAllByCarts(id_carts));
+           return ResponseEntity.ok(iCartDetailService.findAllByCarts(id_status, id_carts));
         }
     }
 
@@ -134,6 +135,7 @@ public class CartController {
 
     @PostMapping("/user/status/all/{id_account}")
     public ResponseEntity<Void> updateAllStatus(@PathVariable Long id_account,
+                                                @RequestParam("status") Long id_status,
                                                 @RequestBody Status status){
         List<Cart> carts = iCartService.findByAccount(id_account);
         if (carts.isEmpty()) {
@@ -143,7 +145,7 @@ public class CartController {
             for (Cart c: carts){                                     //lấy list id_cart
                 id_carts.add(c.getId_cart());
             }
-            List<CartDetail> cartDetails = iCartDetailService.findAllByCarts(id_carts);    //lấy list cart detail theo id_cart
+            List<CartDetail> cartDetails = iCartDetailService.findAllByCarts(id_status ,id_carts);    //lấy list cart detail theo id_cart
             for (CartDetail cartDetail : cartDetails){
                 cartDetail.setStatus(status);                                 //set lại status cho cả list và lưu
                 iCartDetailService.save(cartDetail);

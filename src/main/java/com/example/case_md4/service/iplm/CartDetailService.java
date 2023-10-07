@@ -37,7 +37,7 @@ public class CartDetailService implements ICartDetailService {
     }
 
     @Override
-    public List<CartDetail> findAllByCarts(List<Long> id_carts) {
-        return cartDetailRepository.findAllByCart(id_carts);
+    public List<CartDetail> findAllByCarts(Long id_status,List<Long> id_carts) {
+        return cartDetailRepository.findAllByCart(id_status, id_carts);
     }
 }

@@ -76,10 +76,15 @@ function getCartUser() {
     let id_account = acc.id
         $.ajax({
             type: "GET",
-            url: `http://localhost:8080/api/carts/user/${id_account}`,
+            url: `http://localhost:8080/api/carts/user/${id_account}?status=7`,
             success: function (data){
-                console.log(data)
-                displayCartUser(data)
+                if (data.length !== 0){
+                    $("#add_all").show()
+                    displayCartUser(data)
+                }else{
+                    $("#add_all").hide()
+                    alert("Shopping cart is empty!")
+                }
             }
         })
 }
@@ -201,7 +206,7 @@ function addALLBill(){
                 "Content-Type" : "application/json"
             },
             type:"POST",
-            url:`http://localhost:8080/api/carts/user/status/all/${id_account}`,
+            url:`http://localhost:8080/api/carts/user/status/all/${id_account}?status=7`,
             data: JSON.stringify(status),
             success: function (){
                 alert("Add bill success!")
