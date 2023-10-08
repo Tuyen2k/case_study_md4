@@ -1,5 +1,6 @@
 package com.example.case_md4.service.iplm;
 
+import com.example.case_md4.model.Category;
 import com.example.case_md4.model.Merchant;
 import com.example.case_md4.repository.IMerchantRepository;
 import com.example.case_md4.service.IMerchantService;
@@ -59,4 +60,15 @@ public Merchant findOneByAndAccount (Long id_account){
     public List<Merchant> findAllByCategory(Long id) {
         return merchantRepository.findAllByCategory(id);
     }
+
+    @Override
+    public List<Merchant> FindSearch(String name, Double price1,Double price2, List<Long>categories) {
+        return merchantRepository.FindSearch(name,price1,price2,categories);
+    }
+
+    @Override
+    public List<Merchant> findSearch(String name, Double minPrice, Double maxPrice, Long categoryId) {
+        return merchantRepository.findSearch(name,minPrice,maxPrice,categoryId);
+    }
+
 }

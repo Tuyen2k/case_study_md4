@@ -11,4 +11,7 @@ public interface IMerchantService extends IGenerateService<Merchant>{
   List<Merchant> findAllByNameProduct(String name);
 
   List<Merchant> findAllByCategory(Long id);
+  List<Merchant> FindSearch(String name,Double price1,Double price2,List<Long>categories );
+  List<Merchant> findSearch(String name, Double minPrice, Double maxPrice, Long categoryId);
+
 }
