@@ -14,7 +14,7 @@ function checkAccount(){
             url: "http://localhost:8080/api/products/checkAccUser/" + indexMerchant,
             success: function (data) {
                 showMerchantInUser(data)
-                localStorage.removeItem("idMerchant")
+                localStorage.removeItem("idMer")
             }
         })
     } else {
