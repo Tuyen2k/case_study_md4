@@ -33,6 +33,7 @@ function getDB() {
     findCity();
     updateDisplayMerchant()
     checkMerchant()
+
 }
 
 let arrProduct;
@@ -49,6 +50,7 @@ function getAllMerchant() {
             listDisplayPage = data.reverse();
             display(data)
             showPageS()
+            Category1()
         }
     })
 }
@@ -446,3 +448,42 @@ $.getJSON('http://localhost:8080/api/categories', function(response) {
 }).fail(function(error) {
     console.log(error);
 });
+function Category1() {
+    $.ajax({
+        type: "GET",
+        //tên API
+        url: "http://localhost:8080/api/categories",
+        //xử lý khi thành công
+        success: function (data) {
+            // hiển thị danh sách ở đây
+            let content = "";
+            for (let i = 0; i < data.length; i++) {
+                content += `<option value=${data[i].id_category}>${data[i].name}</option>`;
+            }
+            document.getElementById("category").innerHTML = content;
+        }
+    })
+}
+function filter (){
+    var name = $("#name").val();
+    var price_min = +$("#price_min").val();
+    var price_max = +$("#price_max").val();
+    var category = $("#category").val();
+    $.ajax({
+        type: "POST",
+        headers: {
+            'Accept': 'application/json',
+        },
+        url: "http://localhost:8080/api/merchant/filter?name=" + name + "&minPrice=" + price_min +"&maxPrice=" + price_max + "&category=" + category,
+        success: function (data) {
+            console.log(data)
+            numberPage = 0;
+            arrProduct = data;
+            listDisplayPage = data.reverse();
+            display(data)
+            showPageS()
+        }
+    })
+    //chặn sự kiện mặc định của thẻ
+    event.preventDefault();
+}

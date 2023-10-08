@@ -114,8 +114,20 @@ public class MerchantController {
     public ResponseEntity<List<Merchant>> findAllByName(@PathVariable String name) {
         return new ResponseEntity<>(merchantService.findAllByNameProduct(name), HttpStatus.OK);
     }
-
-
+//    @PostMapping("/merchant/{name}/{price1}/{price2}/{id_category}")
+//    public ResponseEntity<List<Merchant>> searchMerchant(@PathVariable String name,
+//                                                         @PathVariable double price1,
+//                                                         @PathVariable double price2,
+//                                                         @PathVariable Long id_category ){
+//        return  new ResponseEntity<>(merchantService.FindSearch(name,price1,price2,id_category),HttpStatus.OK);
+//    }
+    @PostMapping("/filter")
+    public ResponseEntity<List<Merchant>> filterMerchant(@RequestParam( value = "name",required = false) String name,
+                                                          @RequestParam( value = "minPrice",required = false) Double minPrice,
+                                                          @RequestParam( value = "maxPrice",required = false) Double maxPrice,
+                                                          @RequestParam( value = "category",required = false) List<Long>categories ){
+        return  new ResponseEntity<>(merchantService.FindSearch(name,minPrice,maxPrice,categories),HttpStatus.OK);
+    }
 }
 
 
