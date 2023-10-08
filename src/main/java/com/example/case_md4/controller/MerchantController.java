@@ -125,8 +125,9 @@ public class MerchantController {
     public ResponseEntity<List<Merchant>> filterMerchant(@RequestParam( value = "name",required = false) String name,
                                                           @RequestParam( value = "minPrice",required = false) Double minPrice,
                                                           @RequestParam( value = "maxPrice",required = false) Double maxPrice,
-                                                          @RequestParam( value = "category",required = false) List<Long>categories ){
-        return  new ResponseEntity<>(merchantService.FindSearch(name,minPrice,maxPrice,categories),HttpStatus.OK);
+                                                          @RequestBody List<Long> categories ){
+        List<Merchant> merchants = merchantService.filterMerchant(name,minPrice,maxPrice,categories);
+        return  new ResponseEntity<>(merchants,HttpStatus.OK);
     }
 }
 

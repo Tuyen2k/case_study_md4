@@ -33,7 +33,6 @@ function getDB() {
     findCity();
     updateDisplayMerchant()
     checkMerchant()
-
 }
 
 let arrProduct;
@@ -44,7 +43,6 @@ function getAllMerchant() {
         type: "GET",
         url: 'http://localhost:8080/api/merchant',
         success: function (data) {
-            console.log(data)
             numberPage = 0;
             arrProduct = data;
             listDisplayPage = data.reverse();
@@ -69,7 +67,6 @@ function showPageS() {
     let subArr = data.slice(startPage, endPage);
     display(subArr);
     showFootPage();
-    console.log(totalPage)
 }
 
 function showFootPage() {
@@ -418,7 +415,6 @@ function searchCategory(id_category){
         type: "GET",
         url: "http://localhost:8080/api/merchant/categories/" + id_category,
         success: function (data) {
-            console.log(data)
             numberPage = 0;
             arrProduct = data;
             listDisplayPage = data.reverse();
@@ -448,6 +444,8 @@ $.getJSON('http://localhost:8080/api/categories', function(response) {
 }).fail(function(error) {
     console.log(error);
 });
+
+let categories = [];
 function Category1() {
     $.ajax({
         type: "GET",
@@ -455,8 +453,9 @@ function Category1() {
         url: "http://localhost:8080/api/categories",
         //xử lý khi thành công
         success: function (data) {
+            categories = data;
             // hiển thị danh sách ở đây
-            let content = "";
+            let content = `<option value="-1">Category</option>`;
             for (let i = 0; i < data.length; i++) {
                 content += `<option value=${data[i].id_category}>${data[i].name}</option>`;
             }
@@ -468,15 +467,24 @@ function filter (){
     var name = $("#name").val();
     var price_min = +$("#price_min").val();
     var price_max = +$("#price_max").val();
-    var category = $("#category").val();
+    var id_cate = $("#category").val();
+    let category = [id_cate]
+    if (+category[0] === -1){
+        let list = [];
+        for (let i = 0; i < categories.length; i++) {
+            list.push(categories[i].id_category)
+        }
+        category = list
+    }
     $.ajax({
         type: "POST",
         headers: {
             'Accept': 'application/json',
+            'Content-Type': 'application/json',
         },
-        url: "http://localhost:8080/api/merchant/filter?name=" + name + "&minPrice=" + price_min +"&maxPrice=" + price_max + "&category=" + category,
+        url: "http://localhost:8080/api/merchant/filter?name=" + name + "&minPrice=" + price_min +"&maxPrice=" + price_max,
+        data: JSON.stringify(category),
         success: function (data) {
-            console.log(data)
             numberPage = 0;
             arrProduct = data;
             listDisplayPage = data.reverse();

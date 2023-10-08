@@ -1,10 +1,9 @@
 package com.example.case_md4.repository;
 
-import com.example.case_md4.model.Category;
 import com.example.case_md4.model.Merchant;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,9 +23,9 @@ public interface IMerchantRepository extends JpaRepository<Merchant,Long> {
     List<Merchant> findAllByCategory(Long id);
     @Query(value = "SELECT m.* from  merchant as m join product as p " +
             "on m.id_merchant = p.merchant_id_merchant join category as c " +
-            "on p.category_id_category = c.id_category where p.name like %?% and" +
-            " p.price between ? and ? and p.category_id_category IN (:categories) group by m.id_merchant",nativeQuery = true)
-    List<Merchant>FindSearch(String name,Double price1,Double price2,List<Long> categories );
+            "on p.category_id_category = c.id_category where p.name like :name and" +
+            " p.price between :min and :max and p.category_id_category IN :category group by m.id_merchant",nativeQuery = true)
+    List<Merchant> filterMerchant(@Param("name")String name,@Param("min") Double price1,@Param("max") Double price2, @Param("category") List<Long> categories );
 
     @Query(value = "SELECT m.* FROM merchant AS m " +
             "JOIN product AS p ON m.id_merchant = p.merchant_id_merchant " +
