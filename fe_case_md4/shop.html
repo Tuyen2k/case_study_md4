@@ -23,6 +23,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body onload="getAllMerchant()">
@@ -138,11 +139,15 @@
                             </div>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-
-
-                            <a href="login.html" class="nav-item nav-link" >
-                                <img src="../src/main/resources/static/image/login.png" height="35" width="35"/></a>
-                            <a href="register.html" class="nav-item nav-link"> <img src="../src/main/resources/static/image/pngwing.com.png" height="30" width="30"/></a>
+                            <a href="login.html" id="login" class="nav-item nav-link" >
+                                <img src="../src/main/resources/static/image/login_1.png" style="width: 30px; height: 30px" alt="Login">
+                            </a>
+                            <a href="register.html" id="register" class="nav-item nav-link">
+                                <img src="../src/main/resources/static/image/account.png" style="width: 30px; height: 30px" alt="Logout">
+                            </a>
+                            <a href="#" class="nav-item nav-link" id="logout" onclick="logout()">
+                                <img src="../src/main/resources/static/image/logout.jpg" style="width: 30px; height: 30px" alt="Logout">
+                            </a>
                         </div>
                     </div>
                 </nav>

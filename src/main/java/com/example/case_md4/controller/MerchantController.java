@@ -1,5 +1,6 @@
 package com.example.case_md4.controller;
 
+import com.example.case_md4.model.Activity;
 import com.example.case_md4.model.Address;
 import com.example.case_md4.model.Merchant;
 import com.example.case_md4.service.IMerchantService;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.method.P;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +31,10 @@ public class MerchantController {
     @GetMapping
     public ResponseEntity<List<Merchant>> findAll() {
         return new ResponseEntity<>(merchantService.findAll(), HttpStatus.OK);
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<Merchant>> findAllMerchant() {
+        return new ResponseEntity<>(merchantService.findAllMerchant(), HttpStatus.OK);
     }
 
     @GetMapping("{id_merchant}")
@@ -89,6 +93,16 @@ public class MerchantController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PostMapping("/activity/{id_merchant}")
+    public ResponseEntity<Void> activityMerchant(@PathVariable Long id_merchant,
+                                                 @RequestBody Activity activity){
+        Merchant merchant = merchantService.findById(id_merchant);
+        merchant.setActivity(activity);
+        merchantService.save(merchant);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 
     @GetMapping("/categories/{id_category}")
     public ResponseEntity<List<Merchant>> getAllByCategory(@PathVariable Long id_category) {

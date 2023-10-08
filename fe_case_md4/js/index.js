@@ -14,11 +14,11 @@ function displayProducts() {
                     <img class="img-fluid" src="../src/main/resources/static/image/${p.image}" width="500" height="400" alt="">
                 </a>
                 <h5 class="font-weight-semi-bold m-0">${p.name}</h5>
-                <h5 class="font-weight-semi-bold m-0">${p.price} vnđ</h5>
+                <h5 class="font-weight-semi-bold m-0"><input type="number" value="${p.price}" id="price_p_home" hidden="hidden">${p.price} vnđ</h5>
                 <h5></h5>
                 <div class="d-flex justify-content-between">
                 <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+            <a href="#" class="btn btn-sm text-dark p-0" onclick="addToCart(${p.id_product})"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                 </div>
             </div>
             
@@ -52,12 +52,12 @@ function displaySales() {
         <p class="text-right">${p.purchase} purchased</p>
             <h6 class="text-truncate mb-3">${p.name}</h6>
             <div class="d-flex justify-content-center">
-                <h6>${p.price} vnđ</h6>
+                <h6><input type="number" value="${p.price}" id="price_p_home" hidden="hidden">${p.price} vnđ</h6>
             </div>
         </div>
         <div class="card-footer d-flex justify-content-between bg-light border">
-            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+            <a href="#" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+            <a href="#" onclick="addToCart(${p.id_product})" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
         </div>
     </div>
 </div>`;

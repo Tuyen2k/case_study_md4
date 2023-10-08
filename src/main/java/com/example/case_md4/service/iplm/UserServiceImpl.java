@@ -21,7 +21,8 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
     private IUserRepository iUserRepository;
 
     public Account findById(Long id) {
-        return null;
+        Optional<Account> account = iUserRepository.findById(id);
+        return account.orElse(null);
     }
 
     public Account findByUsername(String name) {
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
     }
 
     public UserDTO toDTO(Account account) {
-        return new UserDTO(account.getId_account(), account.getName(), account.getRole(), account.getEmail(), account.isDelete(), account.getAddress_delivery());
+        return new UserDTO(account.getId_account(), account.getName(), account.getRole(), account.getEmail(), account.getPhone(), account.isDelete(), account.getAddress_delivery());
     }
 
     @Override
@@ -54,7 +55,9 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
         List<UserDTO> userDTOS = new ArrayList<>();
         List<Account> accounts = findAll();
         for (Account a : accounts) {
-            userDTOS.add(toDTO(a));
+            if (!a.isDelete()){
+                userDTOS.add(toDTO(a));
+            }
         }
         return userDTOS;
     }

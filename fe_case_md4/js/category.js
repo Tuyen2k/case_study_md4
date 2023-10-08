@@ -53,10 +53,10 @@ function readInputAndCreateCategory() {
         if (xhr.readyState === 4) {
             if (xhr.status === 201) {
                 // Request is successful, do something
-                console.log("Category created successfully!");
+                alert("Category created successfully!");
             } else {
                 // Request failed, handle the error
-                console.log("Failed to create category");
+                alert("Failed to create category");
             }
         }
     };
@@ -75,7 +75,6 @@ function openForm(id) {
         'http://localhost:8080/api/categories/' + id,
         'GET',
         function (response) {
-            console.log(response)
             document.getElementById("categoryName").value = response.name;
             document.getElementById("btn_update").value = response.id_category;
             document.getElementById("myForm").style.display = "block";
