@@ -2,6 +2,7 @@ class Account {
     id
     name
     email
+    phone
     address_delivery
     delete
     role
@@ -34,14 +35,18 @@ function displayAccount(data) {
     document.getElementById("display_account").innerHTML = content;
 }
 
-// function deleteAccount(id){
-//     if (confirm("Are you sure?")){
-//         $.ajax({
-//             type: "DELETE",
-//             url: ""
-//         })
-//     }
-// }
+function deleteAccount(id){
+    if (confirm("Are you sure?")){
+        $.ajax({
+            type: "DELETE",
+            url: `http://localhost:8080/api/auth/${id}`,
+            success: function (data){
+                alert(data)
+                getAllAccount()
+            }
+        })
+    }
+}
 
 function loginAccount(){
     let username = document.getElementById("username").value;
@@ -71,8 +76,11 @@ function loginAccount(){
 }
 
 function registerAccount(){
-    let username = $("#username").val();
+    let first = $("#first_name").val();
+    let last = $("#last_name").val();
+    let username = first + " "+ last;
     let email = $("#email").val();
+    let phone = $("#phone").val();
     let password = $("#password").val();
     let confirm_password = $("#confirm_password").val();
     let city = $("#city").val();
@@ -82,6 +90,7 @@ function registerAccount(){
     let account = {
         name : username,
         email : email,
+        phone : phone,
         password : password,
         confirm_password : confirm_password,
         address_delivery : {

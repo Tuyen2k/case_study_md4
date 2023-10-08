@@ -22,6 +22,7 @@ public class Account {
     private String email;
     @NotEmpty
     private String password;
+    private String phone;
     @NotEmpty
     private String confirm_password;
     @Column(nullable = false)

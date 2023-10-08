@@ -12,7 +12,8 @@ import java.util.Optional;
 @Service
 public class MerchantService implements IMerchantService {
     @Autowired
-    private IMerchantRepository merchantRepository ;
+    private IMerchantRepository merchantRepository;
+
     @Override
     public List<Merchant> findAll() {
         return merchantRepository.findAllByActivity();
@@ -21,7 +22,7 @@ public class MerchantService implements IMerchantService {
     @Override
     public Merchant findById(Long id_merchant) {
         if (merchantRepository.findById(id_merchant).isPresent()
-                && !merchantRepository.findById(id_merchant).get().isDelete()){
+                && !merchantRepository.findById(id_merchant).get().isDelete()) {
             return merchantRepository.findById(id_merchant).get();
         } else {
             return null;
@@ -30,7 +31,7 @@ public class MerchantService implements IMerchantService {
 
     @Override
     public void save(Merchant merchant) {
-      merchantRepository.save(merchant);
+        merchantRepository.save(merchant);
     }
 
     @Override
@@ -39,7 +40,12 @@ public class MerchantService implements IMerchantService {
         merchant.setDelete(true);
         merchantRepository.save(merchant);
 
-}
+    }
+
+    public List<Merchant> findAllMerchant(){
+        return merchantRepository.findAll();
+    }
+
 public Merchant findOneByAndAccount (Long id_account){
         Merchant merchant = merchantRepository.findOneByAndAccount(id_account);
     if(merchant != null){

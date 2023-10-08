@@ -65,7 +65,7 @@ public class AuthController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Account userInfo = userService.findByUsername(user.getName());
         return ResponseEntity.ok(new JwtResponse(userInfo.getId_account(), jwt,
-                userInfo.getName(), userInfo.getName(), userDetails.getAuthorities()));
+                userInfo.getName(), userInfo.getName(), userDetails.getAuthorities(), userInfo.getAddress_delivery()));
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -101,4 +101,14 @@ public class AuthController {
         userService.save(account);
         return ResponseEntity.ok("Update success!!!");
     }
+
+    @PostMapping("/up_role/{id}")
+    public ResponseEntity<Void> upRole(@RequestBody Role role,
+                                       @PathVariable Long id){
+        Account account = userService.findById(id);
+        account.setRole(role);
+        userService.save(account);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }

@@ -146,7 +146,7 @@
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
             <div class="col-lg-8">
-                <div class="mb-4">
+                <div class="mb-4" id="bill_address">
                     <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
                     <div class="row">
                         <div class="col-md-6 form-group">
@@ -165,34 +165,25 @@
                             <label>Mobile No</label>
                             <input class="form-control" type="text" placeholder="+123 456 789">
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 2</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Country</label>
-                            <select class="custom-select">
-                                <option selected>United States</option>
-                                <option>Afghanistan</option>
-                                <option>Albania</option>
-                                <option>Algeria</option>
+                        <div class="col-md-6 form-group" id="form_city">
+                            <label>City</label>
+                            <select class="custom-select" id="city">
+                                <option value="-1" selected>City</option>
                             </select>
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York">
+                        <div class="col-md-6 form-group" id="form_district">
+                            <label>District</label>
+                            <select class="custom-select" id="district">
+                                <option value="-1" selected>District</option>
+
+                            </select>
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label>State</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123">
+                        <div class="col-md-6 form-group" id="form_ward">
+                            <label>Ward</label>
+                            <select class="custom-select" id="ward">
+                                <option value="-1" selected>Ward</option>
+
+                            </select>
                         </div>
                         <div class="col-md-12 form-group">
                             <div class="custom-control custom-checkbox">
@@ -208,7 +199,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="collapse mb-4" id="shipping-address">
+
+                <div class="collapse mb-4" id="shipping_address">
                     <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
                     <div class="row">
                         <div class="col-md-6 form-group">
@@ -259,12 +251,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4" id="show_order">
                 <div class="card border-secondary mb-5">
                     <div class="card-header bg-secondary border-0">
                         <h4 class="font-weight-semi-bold m-0">Order Total</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="show_bill">
                         <h5 class="font-weight-medium mb-3">Products</h5>
                         <div class="d-flex justify-content-between">
                             <p>Colorful Stylish Shirt 1</p>
@@ -291,7 +283,7 @@
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Total</h5>
-                            <h5 class="font-weight-bold">$160</h5>
+                            <h5 class="font-weight-bold" id="total">$160</h5>
                         </div>
                     </div>
                 </div>
@@ -320,7 +312,7 @@
                         </div>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
-                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
+                        <button id=order onclick="orderCart()" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
                     </div>
                 </div>
             </div>
@@ -415,6 +407,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/checkout_user.js"></script>
 </body>
 
 </html>

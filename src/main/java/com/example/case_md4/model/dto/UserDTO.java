@@ -17,6 +17,7 @@ public class UserDTO {
     private String name;
     private Role role;
     private String email;
+    private String phone;
     private boolean isDelete;
     private Address address_delivery;
 }

@@ -91,6 +91,7 @@ function showMerchant(data) {
                 '               </div>\n' +
                 // `                    <p class="text-dark font-weight-medium mb-0 mr-3">Giá đã giảm :</p>\n` +
                 // `                <h3 class="font-weight-semi-bold mb-4">` + data[0].price_sale + `VND</h3>\n` +
+                `                <h3 class="font-weight-semi-bold mb-4"><input id="price_sale" type="number" value="${data[0].price_sale}" hidden="hidden">` + data[0].price_sale + `VND</h3>\n` +
                 `                <div class="d-flex mb-3">\n` +
                 `                    <p class="text-dark font-weight-medium mb-0 mr-3">Loại:</p>\n` +
                 `                    <form>\n` +
@@ -117,20 +118,22 @@ function showMerchant(data) {
                 `                <div class="d-flex align-items-center mb-4 pt-2">\n` +
                 `                    <div class="input-group quantity mr-3" style="width: 130px;">\n` +
                 //đây là trừ
-                `                        <div class="input-group-btn">\n` +
-                `                            <button class="btn btn-primary btn-minus" >\n` +
+                `                        <div class="input-group-btn" id="minus_div">\n` +
+                //thêm hàm
+                `                            <button onclick="minusQuantity()" class="btn btn-primary btn-minus" >\n` +
                 `                            <i class="fa fa-minus"></i>\n` +
                 `                            </button>\n` +
                 `                        </div>\n` +
-                `                        <input type="text" class="form-control bg-secondary text-center" value="1">\n` +
+                `                        <input type="text" class="form-control bg-secondary text-center" id="quantity_p" value="1">\n` +
                 //đây là cộng
-                `                        <div class="input-group-btn">\n` +
-                `                            <button class="btn btn-primary btn-plus">\n` +
+                `                        <div class="input-group-btn" id="plus_div">\n` +
+                //thêm ham
+                `                            <button onclick="plusQuantity()" class="btn btn-primary btn-plus">\n` +
                 `                                <i class="fa fa-plus"></i>\n` +
                 `                            </button>\n` +
                 `                        </div>\n` +
                 `                    </div>\n` +
-                `                    <button onclick="addToCart()" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ</button>\n` +
+                `                    <a href="detail.html" onclick="addToCartInDetail(${data[0].id_product})" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ</a>\n` +
                 `                </div>\n` +
                 `                <div class="d-flex pt-2">\n` +
                 `                    <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>\n` +
@@ -316,11 +319,13 @@ function showPage() {
 
 function previousPage(page) {
     numberPage = page - 1;
+    upTop()
     showPage();
 }
 
 function nextPage(page) {
     numberPage = page + 1;
+    upTop()
     showPage();
 }
 
@@ -336,7 +341,7 @@ function productsStart(data) {
         '<div class="owl-stage-outer">'
     for (let i = 0; i < data.length; i++) {
         content +=
-            '<div class="owl-item active col-md-3">' +
+            '<div class="owl-item active col-md-3"">' +
             '<div class="card product-item border-0">\n' +
             '          <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">\n' +
             `             <img class="img-fluid w-100" src="../src/main/resources/static/image/${data[i].image}" alt="image">\n` +
@@ -367,7 +372,13 @@ function productsStart(data) {
     document.getElementById("productsStart").innerHTML = content
 }
 
-
+function upTop(){
+    window.scroll({
+        top: 500,
+        left: 0,
+        behavior: 'smooth'
+    });
+}
 
                //------------------------------------------------------------
 
