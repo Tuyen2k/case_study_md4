@@ -1,5 +1,6 @@
 package com.example.case_md4.service.iplm;
 
+import com.example.case_md4.model.Category;
 import com.example.case_md4.model.Merchant;
 import com.example.case_md4.repository.IMerchantRepository;
 import com.example.case_md4.service.IMerchantService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MerchantService implements IMerchantService {
@@ -41,21 +43,21 @@ public class MerchantService implements IMerchantService {
 
     }
 
-    public List<Merchant> findAllMerchant(){
+    public List<Merchant> findAllMerchant() {
         return merchantRepository.findAll();
     }
 
-public Merchant findOneByAndAccount (Long id_account){
+    public Merchant findOneByAndAccount(Long id_account) {
         Merchant merchant = merchantRepository.findOneByAndAccount(id_account);
-    if(merchant != null){
-        return  merchant;
+        if (merchant != null) {
+            return merchant;
+        }
+        return null;
     }
-    return  null;
-}
 
     @Override
     public List<Merchant> findAllByNameProduct(String name) {
-        String search = "%"+name+"%";
+        String search = "%" + name + "%";
         return merchantRepository.findAllByNameProduct(search);
     }
 
